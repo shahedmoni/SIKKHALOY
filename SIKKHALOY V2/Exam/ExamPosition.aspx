@@ -215,6 +215,7 @@ ORDER BY Position_InExam_Class , CASE WHEN ISNUMERIC(StudentsClass.RollNo) = 1 T
     </div>
 
     <asp:CheckBox ID="SecPositionCheckBox" CssClass="NoPrint" runat="server" Text="Send Section Position" />
+    <asp:CheckBox ID="ClassPositionCheckBox" CssClass="NoPrint" runat="server" Text="Send Class Position" />
 
     <div class="form-inline NoPrint">
         <div class="form-group">

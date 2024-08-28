@@ -1760,6 +1760,9 @@
     <Compile Include="Exam\Admit_Card\Old_AdmitCard.aspx.designer.cs">
       <DependentUpon>Old_AdmitCard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Exam\CumulativeResult\Cu_Exam.cs">
+      <DependentUpon>Cu_Exam.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Exam\Result\BanglaResult.aspx.cs">
       <DependentUpon>BanglaResult.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

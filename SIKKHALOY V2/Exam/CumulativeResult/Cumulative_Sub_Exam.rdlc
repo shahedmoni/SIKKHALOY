@@ -1,5 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
+  <am:AuthoringMetadata>
+    <am:CreatedBy>
+      <am:Name>MSRB</am:Name>
+      <am:Version>15.0.20283.0</am:Version>
+    </am:CreatedBy>
+    <am:UpdatedBy>
+      <am:Name>MSRB</am:Name>
+      <am:Version>15.0.20283.0</am:Version>
+    </am:UpdatedBy>
+    <am:LastModifiedTimestamp>2024-08-28T03:44:51.4109942Z</am:LastModifiedTimestamp>
+  </am:AuthoringMetadata>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="Cu_Exam">
@@ -7,6 +18,7 @@
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
+      <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>fd880b79-81e0-4325-a07e-a9a80d8cf265</rd:DataSourceID>
     </DataSource>
   </DataSources>
@@ -236,6 +248,10 @@
         <Field Name="IS_Hide_Sec_Position">
           <DataField>IS_Hide_Sec_Position</DataField>
           <rd:TypeName>System.Boolean</rd:TypeName>
+        </Field>
+        <Field Name="IS_Hide_Class_Position">
+          <DataField>IS_Hide_Class_Position</DataField>
+          <rd:UserDefined>true</rd:UserDefined>
         </Field>
         <Field Name="WorkingDays">
           <DataField>WorkingDays</DataField>
@@ -2189,7 +2205,11 @@
                                           <TablixMember />
                                           <TablixMember />
                                           <TablixMember />
-                                          <TablixMember />
+                                          <TablixMember>
+                                            <Visibility>
+                                              <Hidden>=Fields!IS_Hide_Class_Position.Value</Hidden>
+                                            </Visibility>
+                                          </TablixMember>
                                           <TablixMember>
                                             <Visibility>
                                               <Hidden>=Fields!IS_Hide_Sec_Position.Value</Hidden>
@@ -3153,7 +3173,11 @@
                                       <TablixMember />
                                       <TablixMember />
                                       <TablixMember />
-                                      <TablixMember />
+                                      <TablixMember>
+                                        <Visibility>
+                                          <Hidden>=Fields!IS_Hide_Class_Position.Value</Hidden>
+                                        </Visibility>
+                                      </TablixMember>
                                       <TablixMember>
                                         <Visibility>
                                           <Hidden>=Fields!IS_Hide_Sec_Position.Value</Hidden>

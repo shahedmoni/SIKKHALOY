@@ -237,10 +237,13 @@ namespace EDUCATION.COM.Exam
                         Text += "Total Marks: " + Convert.ToDecimal(StudentsGridView.DataKeys[row.RowIndex]["ObtainedMark_ofStudent"].ToString()).ToString("0.00");
                         Text += ", Grade: " + StudentsGridView.DataKeys[row.RowIndex]["Student_Grade"];
                         Text += ", Point: " + Convert.ToDecimal(StudentsGridView.DataKeys[row.RowIndex]["Student_Point"].ToString()).ToString("0.00");
-                        Text += ", Position In Class: " + row.Cells[8].Text;
+                        if(ClassPositionCheckBox.Checked)
+                        {
+                            Text += ", Position In Class: " + row.Cells[9].Text;
+                        }
                         if (SecPositionCheckBox.Checked)
                         {
-                            Text += ", Position In Section: " + row.Cells[9].Text;
+                            Text += ", Position In Section: " + row.Cells[10].Text;
                         }
                         Text += ". Regards: " + Session["School_Name"];
                     }
@@ -282,7 +285,8 @@ namespace EDUCATION.COM.Exam
                                 Text += "Total Marks: " + Convert.ToDecimal(StudentsGridView.DataKeys[row.RowIndex]["ObtainedMark_ofStudent"].ToString()).ToString("0.00");
                                 Text += ", Grade: " + StudentsGridView.DataKeys[row.RowIndex]["Student_Grade"];
                                 Text += ", Point: " + Convert.ToDecimal(StudentsGridView.DataKeys[row.RowIndex]["Student_Point"].ToString()).ToString("0.00");
-                                Text += ", Position In Class: " + row.Cells[8].Text;
+                                Text += ", Position In Class: " + row.Cells[9].Text;
+                              
                                 if (SecPositionCheckBox.Checked)
                                 {
                                     Text += ", Position In Section: " + row.Cells[9].Text;

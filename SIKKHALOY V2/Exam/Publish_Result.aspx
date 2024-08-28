@@ -57,6 +57,7 @@
                         </div>
 
                         <asp:CheckBox ID="SectionPositionCheckBox" Text="Hide Section Position" runat="server" />
+                        <asp:CheckBox ID="ClassPositionCheckBox" Text="Hide Class Position" runat="server" />
                         <asp:CheckBox ID="H_FullMarkCheckBox" Text="Hide Full Mark" runat="server" />
                         <asp:CheckBox ID="H_PassMarkCheckBox" Text="Hide Pass Mark" runat="server" />
                     </div>
@@ -286,8 +287,8 @@ WHERE        (SchoolID = @SchoolID) AND (EducationYearID = @EducationYearID) AND
 BEGIN
 INSERT INTO Exam_Publish_Setting
                          (SchoolID, RegistrationID, EducationYearID, ClassID, ExamID, IS_Fail_Enable_Optional_Subject, IS_Add_Optional_Mark_In_FullMarks, IS_Enable_Grade_as_it_is_if_Fail, IS_Enable_Fail_if_fail_in_sub_Exam, 
-                         Optional_Percentage_Deduction, IS_Published, Exam_Position_Format, IS_Hide_Sec_Position, Attendance_FromDate, Attendance_ToDate,IS_Hide_FullMark,IS_Hide_PassMark,IS_Grade_BasePoint)
-VALUES        (@SchoolID,@RegistrationID,@EducationYearID,@ClassID,@ExamID,@IS_Fail_Enable_Optional_Subject,@IS_Add_Optional_Mark_In_FullMarks,@IS_Enable_Grade_as_it_is_if_Fail,@IS_Enable_Fail_if_fail_in_sub_Exam,@Optional_Percentage_Deduction,@IS_Published,@Exam_Position_Format,@IS_Hide_Sec_Position,@Attendance_FromDate,@Attendance_ToDate,@IS_Hide_FullMark,@IS_Hide_PassMark,@IS_Grade_BasePoint)
+                         Optional_Percentage_Deduction, IS_Published, Exam_Position_Format, IS_Hide_Sec_Position,IS_Hide_Class_Position, Attendance_FromDate, Attendance_ToDate,IS_Hide_FullMark,IS_Hide_PassMark,IS_Grade_BasePoint)
+VALUES        (@SchoolID,@RegistrationID,@EducationYearID,@ClassID,@ExamID,@IS_Fail_Enable_Optional_Subject,@IS_Add_Optional_Mark_In_FullMarks,@IS_Enable_Grade_as_it_is_if_Fail,@IS_Enable_Fail_if_fail_in_sub_Exam,@Optional_Percentage_Deduction,@IS_Published,@Exam_Position_Format,@IS_Hide_Sec_Position,@IS_Hide_Class_Position,@Attendance_FromDate,@Attendance_ToDate,@IS_Hide_FullMark,@IS_Hide_PassMark,@IS_Grade_BasePoint)
 
 END
 ELSE
@@ -296,7 +297,7 @@ UPDATE       Exam_Publish_Setting
 SET                IS_Fail_Enable_Optional_Subject = @IS_Fail_Enable_Optional_Subject, IS_Add_Optional_Mark_In_FullMarks = @IS_Add_Optional_Mark_In_FullMarks, 
                          IS_Enable_Grade_as_it_is_if_Fail = @IS_Enable_Grade_as_it_is_if_Fail, IS_Enable_Fail_if_fail_in_sub_Exam = @IS_Enable_Fail_if_fail_in_sub_Exam, 
                          Optional_Percentage_Deduction = @Optional_Percentage_Deduction, IS_Published = @IS_Published, Exam_Position_Format = @Exam_Position_Format, Last_Published_Date = GETDATE(), 
-                         IS_Hide_Sec_Position = @IS_Hide_Sec_Position, Attendance_FromDate = @Attendance_FromDate, Attendance_ToDate = @Attendance_ToDate,IS_Hide_FullMark = @IS_Hide_FullMark,IS_Hide_PassMark = @IS_Hide_PassMark, IS_Grade_BasePoint=@IS_Grade_BasePoint
+                         IS_Hide_Sec_Position = @IS_Hide_Sec_Position,IS_Hide_Class_Position=@IS_Hide_Class_Position, Attendance_FromDate = @Attendance_FromDate, Attendance_ToDate = @Attendance_ToDate,IS_Hide_FullMark = @IS_Hide_FullMark,IS_Hide_PassMark = @IS_Hide_PassMark, IS_Grade_BasePoint=@IS_Grade_BasePoint
 WHERE        (SchoolID = @SchoolID) AND (EducationYearID = @EducationYearID) AND (ExamID = @ExamID) AND (ClassID = @ClassID)
 
 END"
@@ -321,11 +322,13 @@ END"
                                     <asp:Parameter DefaultValue="1" Name="IS_Published" />
                                     <asp:ControlParameter ControlID="Position_RadioButtonList" DefaultValue="" Name="Exam_Position_Format" PropertyName="SelectedValue" />
                                     <asp:ControlParameter ControlID="SectionPositionCheckBox" Name="IS_Hide_Sec_Position" PropertyName="Checked" />
+                                    <asp:ControlParameter ControlID="ClassPositionCheckBox" Name="IS_Hide_Class_Position" PropertyName="Checked" />
                                     <asp:ControlParameter ControlID="FromDateTextBox" Name="Attendance_FromDate" PropertyName="Text" />
                                     <asp:ControlParameter ControlID="ToDateTextBox" Name="Attendance_ToDate" PropertyName="Text" />
                                     <asp:ControlParameter ControlID="H_FullMarkCheckBox" Name="IS_Hide_FullMark" PropertyName="Checked" />
                                     <asp:ControlParameter ControlID="H_PassMarkCheckBox" Name="IS_Hide_PassMark" PropertyName="Checked" />
                                     <asp:ControlParameter ControlID="GradeSetting_RBList" Name="IS_Grade_BasePoint" PropertyName="SelectedValue" />
+                                    
                                 </InsertParameters>
                                 <SelectParameters>
                                     <asp:SessionParameter Name="SchoolID" SessionField="SchoolID" />
@@ -368,7 +371,7 @@ END"
                     </SelectParameters>
                 </asp:SqlDataSource>
                 <asp:SqlDataSource ID="ResetExamMarkSQL" runat="server" ConnectionString="<%$ ConnectionStrings:EducationConnectionString %>" SelectCommand="SELECT  DISTINCT Countable_Mark
-FROM   Exam_Publish_Sub_Countable_Mark WHERE (SchoolID = @SchoolID) AND (EducationYearID = @EducationYearID) AND (ClassID = @ClassID) AND (ExamID = @ExamID)">
+                    FROM   Exam_Publish_Sub_Countable_Mark WHERE (SchoolID = @SchoolID) AND (EducationYearID = @EducationYearID) AND (ClassID = @ClassID) AND (ExamID = @ExamID)">
                     <SelectParameters>
                         <asp:SessionParameter Name="SchoolID" SessionField="SchoolID" />
                         <asp:SessionParameter Name="EducationYearID" SessionField="Edu_Year" />
