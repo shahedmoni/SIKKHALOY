@@ -1760,6 +1760,8 @@ namespace EDUCATION.COM.Exam.CumulativeResult {
             
             private global::System.Data.DataColumn columnIS_Hide_Sec_Position;
             
+            private global::System.Data.DataColumn columnIS_Hide_Class_Position;
+            
             private global::System.Data.DataColumn columnWorkingDays;
             
             private global::System.Data.DataColumn columnTotalPresent;
@@ -2263,6 +2265,14 @@ namespace EDUCATION.COM.Exam.CumulativeResult {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn IS_Hide_Class_Position {
+                get {
+                    return this.columnIS_Hide_Class_Position;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public global::System.Data.DataColumn WorkingDaysColumn {
                 get {
                     return this.columnWorkingDays;
@@ -2466,6 +2476,7 @@ namespace EDUCATION.COM.Exam.CumulativeResult {
                         bool NotGolden, 
                         bool IS_Hide_SubExam, 
                         bool IS_Hide_Sec_Position, 
+                        bool IS_Hide_Class_Position, 
                         int WorkingDays, 
                         int TotalPresent, 
                         int TotalAbsent, 
@@ -2536,6 +2547,7 @@ namespace EDUCATION.COM.Exam.CumulativeResult {
                         NotGolden,
                         IS_Hide_SubExam,
                         IS_Hide_Sec_Position,
+                        IS_Hide_Class_Position,
                         WorkingDays,
                         TotalPresent,
                         TotalAbsent,
@@ -2627,6 +2639,7 @@ namespace EDUCATION.COM.Exam.CumulativeResult {
                 this.columnNotGolden = base.Columns["NotGolden"];
                 this.columnIS_Hide_SubExam = base.Columns["IS_Hide_SubExam"];
                 this.columnIS_Hide_Sec_Position = base.Columns["IS_Hide_Sec_Position"];
+                this.columnIS_Hide_Class_Position = base.Columns["IS_Hide_Class_Position"];
                 this.columnWorkingDays = base.Columns["WorkingDays"];
                 this.columnTotalPresent = base.Columns["TotalPresent"];
                 this.columnTotalAbsent = base.Columns["TotalAbsent"];
@@ -2756,6 +2769,10 @@ namespace EDUCATION.COM.Exam.CumulativeResult {
                 base.Columns.Add(this.columnIS_Hide_SubExam);
                 this.columnIS_Hide_Sec_Position = new global::System.Data.DataColumn("IS_Hide_Sec_Position", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIS_Hide_Sec_Position);
+                this.columnIS_Hide_Class_Position = new global::System.Data.DataColumn("IS_Hide_Class_Position", typeof(bool), null, global::System.Data.MappingType.Element);
+                this.columnIS_Hide_Class_Position.ExtendedProperties.Add("Generator_ColumnPropNameInTable", "IS_Hide_Class_Position");
+                this.columnIS_Hide_Class_Position.ExtendedProperties.Add("Generator_UserColumnName", "IS_Hide_Class_Position");
+                base.Columns.Add(this.columnIS_Hide_Class_Position);
                 this.columnWorkingDays = new global::System.Data.DataColumn("WorkingDays", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnWorkingDays);
                 this.columnTotalPresent = new global::System.Data.DataColumn("TotalPresent", typeof(int), null, global::System.Data.MappingType.Element);
@@ -5810,6 +5827,23 @@ namespace EDUCATION.COM.Exam.CumulativeResult {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IS_Hide_Class_Position {
+                get {
+                    try {
+                        return ((bool)(this[this.tableCumi_Student_Profile.IS_Hide_Class_Position]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'IS_Hide_Class_Position\' in table \'Cumi_Student_Profile\' is " +
+                                "DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCumi_Student_Profile.IS_Hide_Class_Position] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public int WorkingDays {
                 get {
                     try {
@@ -6663,6 +6697,18 @@ namespace EDUCATION.COM.Exam.CumulativeResult {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsIS_Hide_Class_PositionNull() {
+                return this.IsNull(this.tableCumi_Student_Profile.IS_Hide_Class_Position);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetIS_Hide_Class_PositionNull() {
+                this[this.tableCumi_Student_Profile.IS_Hide_Class_Position] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsWorkingDaysNull() {
                 return this.IsNull(this.tableCumi_Student_Profile.WorkingDaysColumn);
             }
@@ -7465,6 +7511,7 @@ namespace EDUCATION.COM.Exam.CumulativeResult.Cu_ExamTableAdapters {
             tableMapping.ColumnMappings.Add("NotGolden", "NotGolden");
             tableMapping.ColumnMappings.Add("IS_Hide_SubExam", "IS_Hide_SubExam");
             tableMapping.ColumnMappings.Add("IS_Hide_Sec_Position", "IS_Hide_Sec_Position");
+            tableMapping.ColumnMappings.Add("IS_Hide_Class_Position", "IS_Hide_Class_Position");
             tableMapping.ColumnMappings.Add("WorkingDays", "WorkingDays");
             tableMapping.ColumnMappings.Add("TotalPresent", "TotalPresent");
             tableMapping.ColumnMappings.Add("TotalAbsent", "TotalAbsent");
@@ -7525,52 +7572,53 @@ namespace EDUCATION.COM.Exam.CumulativeResult.Cu_ExamTableAdapters {
                 "go, SchoolInfo.Address, SchoolInfo.Phone, CreateSection.Section, CreateSubjectGr" +
                 "oup.SubjectGroup, CreateShift.Shift, Student_Image.Image, Exam_Cumulative_Studen" +
                 "t.Average, Exam_Cumulative_Student.NotGolden, Exam_Cumulative_Setting.IS_Hide_Su" +
-                "bExam, Exam_Cumulative_Setting.IS_Hide_Sec_Position, Attendance_Student.WorkingD" +
-                "ays, Attendance_Student.TotalPresent, Attendance_Student.TotalAbsent, Attendance" +
-                "_Student.TotalLate, Attendance_Student.TotalLeave, Attendance_Student.TotalBunk," +
-                " Attendance_Student.TotalLateAbs, Exam_Cumulative_Student.ObtainedPercentage_ofS" +
-                "tudent, Exam_Cumulative_Setting.Attendance_FromDate, Exam_Cumulative_Setting.Att" +
-                "endance_ToDate, Exam_Name.ExamID, Subject.SN, Exam_Cumulative_Student.StudentCla" +
-                "ssID,Exam_Cumulative_Subject.IS_Add_InExam FROM Attendance_Student RIGHT OUTER J" +
-                "OIN SchoolInfo INNER JOIN Exam_Name INNER JOIN Exam_Result_of_Student INNER JOIN" +
-                " Exam_Result_of_Subject ON Exam_Result_of_Student.StudentResultID = Exam_Result_" +
-                "of_Subject.StudentResultID ON Exam_Name.ExamID = Exam_Result_of_Student.ExamID I" +
-                "NNER JOIN Exam_Cumulative_Subject ON Exam_Result_of_Subject.SubjectID = Exam_Cum" +
-                "ulative_Subject.SubjectID INNER JOIN Exam_Cumulative_Student ON Exam_Cumulative_" +
-                "Subject.StudentID = Exam_Cumulative_Student.StudentID AND Exam_Cumulative_Subjec" +
-                "t.StudentClassID = Exam_Cumulative_Student.StudentClassID AND Exam_Cumulative_Su" +
-                "bject.Cumulative_SettingID = Exam_Cumulative_Student.Cumulative_SettingID AND Ex" +
-                "am_Result_of_Student.StudentID = Exam_Cumulative_Student.StudentID AND Exam_Resu" +
-                "lt_of_Student.StudentClassID = Exam_Cumulative_Student.StudentClassID INNER JOIN" +
-                " Exam_Cumulative_ExamList ON Exam_Cumulative_Student.CumulativeNameID = Exam_Cum" +
-                "ulative_ExamList.CumulativeNameID AND Exam_Cumulative_Student.Cumulative_Setting" +
-                "ID = Exam_Cumulative_ExamList.Cumulative_SettingID AND Exam_Result_of_Student.Pu" +
-                "blish_SettingID = Exam_Cumulative_ExamList.Publish_SettingID INNER JOIN Subject " +
-                "ON Exam_Cumulative_Subject.SubjectID = Subject.SubjectID INNER JOIN CreateClass " +
-                "ON Exam_Cumulative_Student.ClassID = CreateClass.ClassID INNER JOIN StudentsClas" +
-                "s ON Exam_Cumulative_Student.StudentClassID = StudentsClass.StudentClassID INNER" +
-                " JOIN Student ON Exam_Cumulative_Student.StudentID = Student.StudentID INNER JOI" +
-                "N Exam_Cumulative_Name ON Exam_Cumulative_Subject.CumulativeNameID = Exam_Cumula" +
-                "tive_Name.CumulativeNameID INNER JOIN Exam_Cumulative_Setting ON Exam_Cumulative" +
-                "_Student.Cumulative_SettingID = Exam_Cumulative_Setting.Cumulative_SettingID ON " +
-                "SchoolInfo.SchoolID = Exam_Cumulative_Setting.SchoolID INNER JOIN Exam_Obtain_Ma" +
-                "rks ON Exam_Result_of_Subject.StudentResultID = Exam_Obtain_Marks.StudentResultI" +
-                "D AND Exam_Result_of_Subject.SubjectID = Exam_Obtain_Marks.SubjectID ON Attendan" +
-                "ce_Student.CumulativeNameID = Exam_Cumulative_Student.CumulativeNameID AND Atten" +
-                "dance_Student.StudentID = Exam_Cumulative_Student.StudentID AND Attendance_Stude" +
-                "nt.StudentClassID = Exam_Cumulative_Student.StudentClassID LEFT OUTER JOIN Exam_" +
-                "SubExam_Name ON Exam_Obtain_Marks.SubExamID = Exam_SubExam_Name.SubExamID LEFT O" +
-                "UTER JOIN Student_Image ON Student.StudentImageID = Student_Image.StudentImageID" +
-                " LEFT OUTER JOIN CreateShift ON StudentsClass.ShiftID = CreateShift.ShiftID LEFT" +
-                " OUTER JOIN CreateSubjectGroup ON StudentsClass.SubjectGroupID = CreateSubjectGr" +
-                "oup.SubjectGroupID LEFT OUTER JOIN CreateSection ON StudentsClass.SectionID = Cr" +
-                "eateSection.SectionID WHERE (Student.Status = N\'Active\') AND (Exam_Cumulative_Ex" +
-                "amList.CumulativeNameID = @CumulativeNameID) AND (Exam_Cumulative_ExamList.Schoo" +
-                "lID = @SchoolID) AND (Exam_Cumulative_ExamList.EducationYearID = @EducationYearI" +
-                "D) AND (Exam_Cumulative_Setting.IS_Published = 1) AND (Exam_Cumulative_Student.S" +
-                "tudentClassID = @StudentClassID) ORDER BY CreateSection.Section, CASE WHEN ISNUM" +
-                "ERIC(StudentsClass.RollNo) = 1 THEN CAST(REPLACE(REPLACE(StudentsClass.RollNo , " +
-                "\'$\' , \'\') , \',\' , \'\') AS FLOAT) ELSE 0 END, ISNULL(Subject.SN, 9999)";
+                "bExam, Exam_Cumulative_Setting.IS_Hide_Sec_Position,Exam_Cumulative_Setting.IS_H" +
+                "ide_Class_Position, Attendance_Student.WorkingDays, Attendance_Student.TotalPres" +
+                "ent, Attendance_Student.TotalAbsent, Attendance_Student.TotalLate, Attendance_St" +
+                "udent.TotalLeave, Attendance_Student.TotalBunk, Attendance_Student.TotalLateAbs," +
+                " Exam_Cumulative_Student.ObtainedPercentage_ofStudent, Exam_Cumulative_Setting.A" +
+                "ttendance_FromDate, Exam_Cumulative_Setting.Attendance_ToDate, Exam_Name.ExamID," +
+                " Subject.SN, Exam_Cumulative_Student.StudentClassID,Exam_Cumulative_Subject.IS_A" +
+                "dd_InExam FROM Attendance_Student RIGHT OUTER JOIN SchoolInfo INNER JOIN Exam_Na" +
+                "me INNER JOIN Exam_Result_of_Student INNER JOIN Exam_Result_of_Subject ON Exam_R" +
+                "esult_of_Student.StudentResultID = Exam_Result_of_Subject.StudentResultID ON Exa" +
+                "m_Name.ExamID = Exam_Result_of_Student.ExamID INNER JOIN Exam_Cumulative_Subject" +
+                " ON Exam_Result_of_Subject.SubjectID = Exam_Cumulative_Subject.SubjectID INNER J" +
+                "OIN Exam_Cumulative_Student ON Exam_Cumulative_Subject.StudentID = Exam_Cumulati" +
+                "ve_Student.StudentID AND Exam_Cumulative_Subject.StudentClassID = Exam_Cumulativ" +
+                "e_Student.StudentClassID AND Exam_Cumulative_Subject.Cumulative_SettingID = Exam" +
+                "_Cumulative_Student.Cumulative_SettingID AND Exam_Result_of_Student.StudentID = " +
+                "Exam_Cumulative_Student.StudentID AND Exam_Result_of_Student.StudentClassID = Ex" +
+                "am_Cumulative_Student.StudentClassID INNER JOIN Exam_Cumulative_ExamList ON Exam" +
+                "_Cumulative_Student.CumulativeNameID = Exam_Cumulative_ExamList.CumulativeNameID" +
+                " AND Exam_Cumulative_Student.Cumulative_SettingID = Exam_Cumulative_ExamList.Cum" +
+                "ulative_SettingID AND Exam_Result_of_Student.Publish_SettingID = Exam_Cumulative" +
+                "_ExamList.Publish_SettingID INNER JOIN Subject ON Exam_Cumulative_Subject.Subjec" +
+                "tID = Subject.SubjectID INNER JOIN CreateClass ON Exam_Cumulative_Student.ClassI" +
+                "D = CreateClass.ClassID INNER JOIN StudentsClass ON Exam_Cumulative_Student.Stud" +
+                "entClassID = StudentsClass.StudentClassID INNER JOIN Student ON Exam_Cumulative_" +
+                "Student.StudentID = Student.StudentID INNER JOIN Exam_Cumulative_Name ON Exam_Cu" +
+                "mulative_Subject.CumulativeNameID = Exam_Cumulative_Name.CumulativeNameID INNER " +
+                "JOIN Exam_Cumulative_Setting ON Exam_Cumulative_Student.Cumulative_SettingID = E" +
+                "xam_Cumulative_Setting.Cumulative_SettingID ON SchoolInfo.SchoolID = Exam_Cumula" +
+                "tive_Setting.SchoolID INNER JOIN Exam_Obtain_Marks ON Exam_Result_of_Subject.Stu" +
+                "dentResultID = Exam_Obtain_Marks.StudentResultID AND Exam_Result_of_Subject.Subj" +
+                "ectID = Exam_Obtain_Marks.SubjectID ON Attendance_Student.CumulativeNameID = Exa" +
+                "m_Cumulative_Student.CumulativeNameID AND Attendance_Student.StudentID = Exam_Cu" +
+                "mulative_Student.StudentID AND Attendance_Student.StudentClassID = Exam_Cumulati" +
+                "ve_Student.StudentClassID LEFT OUTER JOIN Exam_SubExam_Name ON Exam_Obtain_Marks" +
+                ".SubExamID = Exam_SubExam_Name.SubExamID LEFT OUTER JOIN Student_Image ON Studen" +
+                "t.StudentImageID = Student_Image.StudentImageID LEFT OUTER JOIN CreateShift ON S" +
+                "tudentsClass.ShiftID = CreateShift.ShiftID LEFT OUTER JOIN CreateSubjectGroup ON" +
+                " StudentsClass.SubjectGroupID = CreateSubjectGroup.SubjectGroupID LEFT OUTER JOI" +
+                "N CreateSection ON StudentsClass.SectionID = CreateSection.SectionID WHERE (Stud" +
+                "ent.Status = N\'Active\') AND (Exam_Cumulative_ExamList.CumulativeNameID = @Cumula" +
+                "tiveNameID) AND (Exam_Cumulative_ExamList.SchoolID = @SchoolID) AND (Exam_Cumula" +
+                "tive_ExamList.EducationYearID = @EducationYearID) AND (Exam_Cumulative_Setting.I" +
+                "S_Published = 1) AND (Exam_Cumulative_Student.StudentClassID = @StudentClassID) " +
+                "ORDER BY CreateSection.Section, CASE WHEN ISNUMERIC(StudentsClass.RollNo) = 1 TH" +
+                "EN CAST(REPLACE(REPLACE(StudentsClass.RollNo , \'$\' , \'\') , \',\' , \'\') AS FLOAT) E" +
+                "LSE 0 END, ISNULL(Subject.SN, 9999)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CumulativeNameID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "CumulativeNameID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SchoolID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "SchoolID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));

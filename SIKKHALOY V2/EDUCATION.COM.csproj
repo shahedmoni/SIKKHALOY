@@ -564,7 +564,7 @@
     <None Include="Exam_Result.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Exam_Result.Designer.cs</LastGenOutput>
+      <LastGenOutput>Exam_Result1.Designer.cs</LastGenOutput>
     </None>
     <Content Include="Exam_Result.xss">
       <DependentUpon>Exam_Result.xsd</DependentUpon>
@@ -1949,6 +1949,9 @@
     </Compile>
     <Compile Include="Exam\WeeklyExam\Weekly_Merit_Status_Results.aspx.designer.cs">
       <DependentUpon>Weekly_Merit_Status_Results.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Exam_Result.cs">
+      <DependentUpon>Exam_Result.xsd</DependentUpon>
     </Compile>
     <Compile Include="Exam_Result.Designer.cs">
       <AutoGen>True</AutoGen>
