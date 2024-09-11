@@ -213,9 +213,9 @@ ORDER BY Position_InExam_Class , CASE WHEN ISNUMERIC(StudentsClass.RollNo) = 1 T
         <asp:Label ID="ErrorLabel" runat="server" CssClass="EroorSummer"></asp:Label>
         <asp:CustomValidator ID="CV" runat="server" ClientValidationFunction="Validate" ErrorMessage="You do not select any student from student list." ForeColor="Red" ValidationGroup="1"></asp:CustomValidator>
     </div>
-
+    <asp:CheckBox ID="ClassPositionCheckBox" CssClass="NoPrint" runat="server" Text="Send Class Position" Checked="True" />
     <asp:CheckBox ID="SecPositionCheckBox" CssClass="NoPrint" runat="server" Text="Send Section Position" />
-    <asp:CheckBox ID="ClassPositionCheckBox" CssClass="NoPrint" runat="server" Text="Send Class Position" />
+
 
     <div class="form-inline NoPrint">
         <div class="form-group">
