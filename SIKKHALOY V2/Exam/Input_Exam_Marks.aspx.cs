@@ -1,15 +1,18 @@
-﻿using System;
+﻿using EnvDTE;
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Xml.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace EDUCATION.COM.Exam
 {
     public partial class Input_Exam_Marks : System.Web.UI.Page
     {
-        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["EducationConnectionString"].ToString());
+        SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["EducationConnectionString"].ToString());
         protected void view()
         {
             DataView GroupDV = new DataView();
@@ -72,6 +75,12 @@ namespace EDUCATION.COM.Exam
             ShiftDropDownList.Visible = false;
             SubExamDownList.Visible = false;
             SubExamRequired.Enabled = false;
+
+
+            int totalsubExam = Convert.ToInt32(SubExamDownList.Items.Count.ToString());
+
+            Session["subexamcount"] = totalsubExam;
+
         }
 
         protected void ClassDropDownList_SelectedIndexChanged(object sender, EventArgs e)//Class DDL
@@ -133,6 +142,13 @@ namespace EDUCATION.COM.Exam
         protected void SubExamDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
             PassMarkFullMarkSQL.SelectParameters["SubExamID"].DefaultValue = SubExamDownList.SelectedValue;
+            //SubExamDownList.Cou
+            int totalrecord = Convert.ToInt32(SubExamDownList.Items.Count.ToString());
+
+
+
+
+
             StudentsGridView.DataBind();
         }
 
@@ -193,7 +209,24 @@ namespace EDUCATION.COM.Exam
                         (e.Row.FindControl("MarksTextBox") as TextBox).Enabled = false;
                     }
                 }
+
+
+
+
             }
+        }
+        private void AddGridviewColumn(string name)
+        {
+            TemplateField col = new TemplateField();
+            col.HeaderText = name;
+            StudentsGridView.Columns.Add(col);
+
+
+
+            //BoundField testField = new BoundField();
+            //testField.DataField = "New_testField_Name";
+            //testField.HeaderText = "testField_Header";
+            //StudentsGridView.Columns.Add(testField);
         }
 
         protected void ShowStudentButton_Click(object sender, EventArgs e)

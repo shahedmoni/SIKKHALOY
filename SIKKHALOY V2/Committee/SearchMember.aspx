@@ -5,15 +5,17 @@
         .custom-form-row { display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap; gap: 20px }
         .photo{width:50px;border-radius: 5px;}
     </style>
+        <!--add dynamic css for printing-->
+    <style type="text/css" media="print" id="print-content"></style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <%--<h3 class="d-flex justify-content-between align-items-center py-0">Add Member
          <a class="btn btn-info d-print-none" href="SearchMember.aspx" style="margin-left: 45%">Search Member</a>
         <a class="btn btn-dark d-print-none" href="MemberType.aspx">Add Member Type</a>
     </h3>--%>
-
+     <h3>Committee/Doner List</h3>
     <div class="custom-form-row">
-        <div class="form-group">
+        <div class="form-group d-print-none">
             <label>Donor Type</label>
             <asp:DropDownList ID="CommitteeMemberDropDownList" required="" runat="server" AppendDataBoundItems="True" AutoPostBack="True" CssClass="form-control" DataSourceID="MemberTypeSQL" DataTextField="CommitteeMemberType" DataValueField="CommitteeMemberTypeId">
                 <asp:ListItem Value="%">[ All Type ]</asp:ListItem>
@@ -25,7 +27,7 @@
                 </SelectParameters>
             </asp:SqlDataSource>
         </div>
-        <div class="form-group ml-3">
+        <div class="form-group ml-3 d-print-none">
             <label>Donation Type</label>
             <asp:DropDownList ID="DonationCategoryDropDownList" runat="server" AppendDataBoundItems="True" AutoPostBack="True" CssClass="form-control" DataSourceID="SqlCommitteeDonationCategory" DataTextField="DonationCategory" DataValueField="CommitteeDonationCategoryId">
                 <asp:ListItem Value="%">[ ALL Type ]</asp:ListItem>
@@ -36,14 +38,14 @@
                 </SelectParameters>
             </asp:SqlDataSource>
         </div>
-        <div class="form-group">
+        <div class="form-group d-print-none">
             <label>Name/Phone</label>
             <asp:TextBox ID="NamePhoneTextBox" required="" runat="server" CssClass="form-control"></asp:TextBox>
         </div>
-        <div class="form-group ml-3" style="padding-top: 1.8rem">
+        <div class="form-group ml-3 d-print-none"  style="padding-top: 1.8rem ">
             <asp:Button ID="FindButton" runat="server" CssClass="btn btn-outline-primary btn-md" Text="Find" />
         </div>
-        <div class="form-group ml-3" style="padding-top: 1.8rem">
+        <div class="form-group ml-3 d-print-none" style="padding-top: 1.8rem">
             <input id="PrintButton" type="button" value="Print" onclick="window.print();" class="btn btn-info" />
         </div>
     </div>
@@ -51,11 +53,7 @@
     <div class="table-responsive mt-3">
         <asp:GridView ID="MemberGridView" AllowSorting="True" AllowPaging="True" PageSize="50" runat="server" CssClass="mGrid" AutoGenerateColumns="False" DataSourceID="MemberSQL" DataKeyNames="CommitteeMemberId">
             <Columns>
-                <asp:TemplateField HeaderText="Photo">
-                    <ItemTemplate>
-                        <img src="data:image/jpg;base64, <%# Convert.ToBase64String(string.IsNullOrEmpty(Eval("Photo").ToString())? new byte[]{}: (byte[]) Eval("Photo"))  %>" onerror="this.src='/Handeler/Default/Male.png'" class="photo" alt="<%#Eval("MemberName") %>" />
-                    </ItemTemplate>                  
-                </asp:TemplateField>
+
                 <asp:TemplateField HeaderText="Name" SortExpression="MemberName">
                     <ItemTemplate>
                         <%#Eval("MemberName") %>
@@ -90,6 +88,11 @@
                     <ItemTemplate>
                         <%#Eval("DueDonation") %>
                     </ItemTemplate>
+                </asp:TemplateField>
+                  <asp:TemplateField HeaderText="">
+                    <ItemTemplate >
+                        <img src="data:image/jpg;base64, <%# Convert.ToBase64String(string.IsNullOrEmpty(Eval("Photo").ToString())? new byte[]{}: (byte[]) Eval("Photo"))  %>" onerror="this.src='/Handeler/Default/Male.png'" class="photo d-print-none" alt="<%#Eval("MemberName") %>" />
+                    </ItemTemplate>                  
                 </asp:TemplateField>
             </Columns>
             <PagerStyle CssClass="pgr" />

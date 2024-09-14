@@ -186,15 +186,6 @@ namespace EDUCATION.COM.Exam
         protected global::System.Web.UI.WebControls.CustomValidator CV;
 
         /// <summary>
-        /// SecPositionCheckBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox SecPositionCheckBox;
-
-        /// <summary>
         /// ClassPositionCheckBox control.
         /// </summary>
         /// <remarks>
@@ -202,6 +193,15 @@ namespace EDUCATION.COM.Exam
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox ClassPositionCheckBox;
+
+        /// <summary>
+        /// SecPositionCheckBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox SecPositionCheckBox;
 
         /// <summary>
         /// SMSButton control.

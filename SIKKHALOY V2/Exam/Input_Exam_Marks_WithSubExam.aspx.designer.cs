@@ -11,7 +11,7 @@ namespace EDUCATION.COM.Exam
 {
 
 
-    public partial class Input_Exam_Marks
+    public partial class Input_Exam_Marks_WithSubExam
     {
 
         /// <summary>
@@ -150,15 +150,6 @@ namespace EDUCATION.COM.Exam
         protected global::System.Web.UI.WebControls.SqlDataSource SubjectSQL;
 
         /// <summary>
-        /// RequiredFieldValidator7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
-
-        /// <summary>
         /// SubExamDownList control.
         /// </summary>
         /// <remarks>
@@ -175,15 +166,6 @@ namespace EDUCATION.COM.Exam
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SubExamSQL;
-
-        /// <summary>
-        /// SubExamRequired control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator SubExamRequired;
 
         /// <summary>
         /// ShowStudentButton control.

@@ -1,8 +1,38 @@
-﻿<%@ Page Title="Exam Marks Input" Language="C#" MasterPageFile="~/BASIC.Master" AutoEventWireup="true" CodeBehind="Input_Exam_Marks.aspx.cs" Inherits="EDUCATION.COM.Exam.Input_Exam_Marks" %>
+﻿<%@ Page Title="Exam Marks Input" Language="C#" MasterPageFile="~/BASIC.Master" AutoEventWireup="true" CodeBehind="Input_Exam_Marks_WithSubExam.aspx.cs" Inherits="EDUCATION.COM.Exam.Input_Exam_Marks_WithSubExam" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/Input_Marks.css?v=3.1" rel="stylesheet" />
+    <style>
+        .Studen_table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            text-align: center
+        }
+
+            .Studen_table td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            .Studen_table tr:nth-child(even) {
+                background-color: #f1f1f1;
+            }
+
+            .Studen_table tr:hover {
+                background-color: #ddd;
+            }
+
+        .tex {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    </style>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <asp:UpdatePanel ID="ContainUpdatePanel" runat="server">
         <ContentTemplate>
@@ -83,7 +113,7 @@
                             <asp:ControlParameter ControlID="GroupDropDownList" Name="SubjectGroupID" PropertyName="SelectedValue" />
                         </SelectParameters>
                     </asp:SqlDataSource>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="SubjectDropDownList" CssClass="EroorStar" ErrorMessage="Select subject" InitialValue="0" ValidationGroup="1">*</asp:RequiredFieldValidator>
+                    <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="SubjectDropDownList" CssClass="EroorStar" ErrorMessage="Select subject" InitialValue="0" ValidationGroup="1">*</asp:RequiredFieldValidator>--%>
                 </div>
 
                 <div class="form-group">
@@ -98,7 +128,7 @@
                             <asp:ControlParameter ControlID="ExamDropDownList" Name="ExamID" PropertyName="SelectedValue" />
                         </SelectParameters>
                     </asp:SqlDataSource>
-                    <asp:RequiredFieldValidator ID="SubExamRequired" runat="server" ControlToValidate="SubExamDownList" CssClass="EroorStar" ErrorMessage="Select sub-exam" ValidationGroup="1" Enabled="False">*</asp:RequiredFieldValidator>
+                    <%--<asp:RequiredFieldValidator ID="SubExamRequired" runat="server" ControlToValidate="SubExamDownList" CssClass="EroorStar" ErrorMessage="Select sub-exam" ValidationGroup="1" Enabled="False">*</asp:RequiredFieldValidator>--%>
                 </div>
 
                 <div class="form-group">
@@ -138,32 +168,180 @@
                 </SelectParameters>
             </asp:SqlDataSource>
 
+
+
+
+
+            <%--<div>
+                <asp:Repeater ID="Repeater1" runat="server" DataSourceID="ShowStudentClassSQL">
+                    <HeaderTemplate>
+                        <table class="Studen_table" style="width: 100%">
+                            <tr style="background-color: #808080; color: #ffffff; font-weight: bold; font-size: 18px;">
+                                <b>
+                                    <th>ID  
+                                    </th>
+                                    <th>Name  
+                                    </th>
+                                    <th>Roll No.  
+                                    </th>
+                                    <th>Obtain Marks</th>
+                                    <th>Absence</th>
+                                </b>
+                            </tr>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <tr class="tblrowcolor">
+                            <td>
+                                <%#DataBinder.Eval(Container,"DataItem.ID")%>  
+                            </td>
+                            <td>
+                                <%#DataBinder.Eval(Container,"DataItem.StudentsName")%>  
+                            </td>
+                            <td>
+                                <%#DataBinder.Eval(Container,"DataItem.RollNo")%>  
+                            </td>
+
+                            <td>
+
+                                <asp:Repeater ID="StyleRepeater" runat="server" DataSourceID="SubExamSQL1">
+                                    <ItemTemplate>
+                                        <label class="tex" for="<%# Eval("SubExamName") %>"><%# Eval("SubExamName") %></label>
+                                        <asp:TextBox ID="MarksTextBox" runat="server" CssClass="InputVibl form-control" autocomplete="off" onDrop="blur();return false;" onpaste="return false" onkeypress="return isNumberKey(event)"></asp:TextBox>
+
+                                    </ItemTemplate>
+
+                                </asp:Repeater>
+                                <asp:SqlDataSource ID="SubExamSQL1" runat="server" ConnectionString="<%$ ConnectionStrings:EducationConnectionString %>" SelectCommand="SELECT Exam_SubExam_Name.SubExamID, Exam_SubExam_Name.SubExamName FROM Exam_SubExam_Name INNER JOIN Exam_Full_Marks ON Exam_SubExam_Name.SubExamID = Exam_Full_Marks.SubExamID WHERE (Exam_Full_Marks.SubjectID = @SubjectID) AND (Exam_Full_Marks.ClassID = @ClassID) AND (Exam_SubExam_Name.SchoolID = @SchoolID) AND (Exam_Full_Marks.ExamID = @ExamID) AND (Exam_Full_Marks.EducationYearID = @EducationYearID)">
+                                    <SelectParameters>
+                                        <asp:ControlParameter ControlID="SubjectDropDownList" Name="SubjectID" PropertyName="SelectedValue" />
+                                        <asp:ControlParameter ControlID="ClassDropDownList" Name="ClassID" PropertyName="SelectedValue" />
+                                        <asp:SessionParameter Name="SchoolID" SessionField="SchoolID" />
+                                        <asp:SessionParameter Name="EducationYearID" SessionField="Edu_Year" />
+                                        <asp:ControlParameter ControlID="ExamDropDownList" Name="ExamID" PropertyName="SelectedValue" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
+
+
+                            </td>
+                            <td>
+
+                                <asp:Repeater ID="Repeater2" runat="server" DataSourceID="SubExamSQL1">
+
+                                    <ItemTemplate>
+                                        <table class="Studen_table">
+                                            <tr>
+                                                <td style="border: none; text-align: right; width: 80px">
+                                                    <label for="<%# Eval("SubExamName") %>"><%# Eval("SubExamName") %></label>
+                                                    <br />
+
+                                                </td>
+                                                <td style="border: none; text-align: left; width: 30px">
+                                                    <asp:CheckBox ID="AbsenceCheckBox" runat="server" Text=" " ToolTip='<%#Eval("SubExamID")%>' /></td>
+                                            </tr>
+                                        </table>
+
+
+                                    </ItemTemplate>
+
+                                </asp:Repeater>
+                                <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:EducationConnectionString %>" SelectCommand="SELECT Exam_SubExam_Name.SubExamID, Exam_SubExam_Name.SubExamName FROM Exam_SubExam_Name INNER JOIN Exam_Full_Marks ON Exam_SubExam_Name.SubExamID = Exam_Full_Marks.SubExamID WHERE (Exam_Full_Marks.SubjectID = @SubjectID) AND (Exam_Full_Marks.ClassID = @ClassID) AND (Exam_SubExam_Name.SchoolID = @SchoolID) AND (Exam_Full_Marks.ExamID = @ExamID) AND (Exam_Full_Marks.EducationYearID = @EducationYearID)">
+                                    <SelectParameters>
+                                        <asp:ControlParameter ControlID="SubjectDropDownList" Name="SubjectID" PropertyName="SelectedValue" />
+                                        <asp:ControlParameter ControlID="ClassDropDownList" Name="ClassID" PropertyName="SelectedValue" />
+                                        <asp:SessionParameter Name="SchoolID" SessionField="SchoolID" />
+                                        <asp:SessionParameter Name="EducationYearID" SessionField="Edu_Year" />
+                                        <asp:ControlParameter ControlID="ExamDropDownList" Name="ExamID" PropertyName="SelectedValue" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
+
+
+                            </td>
+                        </tr>
+
+                    </ItemTemplate>
+
+
+
+                </asp:Repeater>
+            </div>--%>
+
+
             <div class="table-responsive mb-3">
                 <asp:CheckBox CssClass="showHideName" ID="StudentsNameCheckbox" Text="Hide Student Name" runat="server" />
                 <asp:GridView ID="StudentsGridView" runat="server" AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false" CssClass="mGrid" DataSourceID="ShowStudentClassSQL" DataKeyNames="StudentID,StudentClassID" OnRowDataBound="StudentsGridView_RowDataBound" Visible="False" AllowSorting="True">
+
+
+
                     <Columns>
                         <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
                         <asp:BoundField DataField="StudentsName" HeaderText="Name" SortExpression="StudentsName" />
                         <%--<asp:BoundField DataField="FathersName" HeaderText="Father's Name" SortExpression="FathersName" />--%>
                         <asp:BoundField DataField="RollNo" HeaderText="Roll No." SortExpression="RollNo" />
 
+
+
+
                         <asp:TemplateField HeaderText="Obtain Marks">
                             <ItemTemplate>
-                                <asp:TextBox ID="MarksTextBox" runat="server" CssClass="InputVibl form-control" autocomplete="off" onDrop="blur();return false;" onpaste="return false" onkeypress="return isNumberKey(event)"></asp:TextBox>
+
+                                <asp:DataList ID="StylDataList" runat="server"  DataSourceID="SubExamSQL1" RepeatDirection="Horizontal" RepeatLayout="Flow"
+                                    OnItemDataBound="StylDataList_ItemDataBound" Width="100%">
+
+
+
+
+
+                                    <ItemTemplate>
+                                        <asp:Panel CssClass="Style_Input" runat="server" ID="AddClass">
+                                            Absence
+                                            <asp:CheckBox ID="AbsenceCheckBox" runat="server"  Text='<%# Eval("SubExamName") %>' /> <br />
+                                            <asp:TextBox ID="MarksTextBox" runat="server" CssClass="StyleTextBox" Text='<%= Session["obtainMarks"].ToString()%>'/><%--<asp:TextBox ID="MarksTextBox" runat="server" CssClass="InputVibl form-control" autocomplete="off" onDrop="blur();return false;" onpaste="return false" onkeypress="return isNumberKey(event)"></asp:TextBox>--%>
+                                            
+                                        </asp:Panel>
+                                    </ItemTemplate>
+                                </asp:DataList>
+                                <asp:SqlDataSource ID="SubExamSQL1" runat="server" ConnectionString="<%$ ConnectionStrings:EducationConnectionString %>" SelectCommand="SELECT Exam_SubExam_Name.SubExamID, Exam_SubExam_Name.SubExamName FROM Exam_SubExam_Name INNER JOIN Exam_Full_Marks ON Exam_SubExam_Name.SubExamID = Exam_Full_Marks.SubExamID WHERE (Exam_Full_Marks.SubjectID = @SubjectID) AND (Exam_Full_Marks.ClassID = @ClassID) AND (Exam_SubExam_Name.SchoolID = @SchoolID) AND (Exam_Full_Marks.ExamID = @ExamID) AND (Exam_Full_Marks.EducationYearID = @EducationYearID)">
+                                    <SelectParameters>
+                                        <asp:ControlParameter ControlID="SubjectDropDownList" Name="SubjectID" PropertyName="SelectedValue" />
+                                        <asp:ControlParameter ControlID="ClassDropDownList" Name="ClassID" PropertyName="SelectedValue" />
+                                        <asp:SessionParameter Name="SchoolID" SessionField="SchoolID" />
+                                        <asp:SessionParameter Name="EducationYearID" SessionField="Edu_Year" />
+                                        <asp:ControlParameter ControlID="ExamDropDownList" Name="ExamID" PropertyName="SelectedValue" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
+
+
+
+
+                                <%--<asp:TextBox ID="MarksTextBox" runat="server" CssClass="InputVibl form-control" autocomplete="off" onDrop="blur();return false;" onpaste="return false" onkeypress="return isNumberKey(event)"></asp:TextBox>--%>
                             </ItemTemplate>
                             <ItemStyle Width="100px" />
                         </asp:TemplateField>
-                        <asp:TemplateField HeaderText="Absence">
+
+
+
+
+
+
+
+
+
+
+
+
+                        <%--<asp:TemplateField HeaderText="Absence">
                             <ItemTemplate>
                                 <asp:CheckBox ID="AbsenceCheckBox" runat="server" Text=" " />
                             </ItemTemplate>
                             <ItemStyle Width="50px" HorizontalAlign="Center" />
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
                     </Columns>
+
+
                     <PagerStyle CssClass="pgr" />
                 </asp:GridView>
-                <asp:SqlDataSource ID="ShowStudentClassSQL" runat="server" ConnectionString="<%$ ConnectionStrings:EducationConnectionString %>" SelectCommand="SELECT Student.StudentsName, Student.FathersName, StudentsClass.StudentID, StudentsClass.StudentClassID, Student.ID, StudentsClass.RollNo FROM StudentsClass INNER JOIN Student ON StudentsClass.StudentID = Student.StudentID INNER JOIN StudentRecord ON StudentsClass.StudentClassID = StudentRecord.StudentClassID WHERE (StudentsClass.ClassID = @ClassID) AND (StudentsClass.SectionID LIKE @SectionID) AND (StudentsClass.SubjectGroupID LIKE @SubjectGroupID) AND (StudentsClass.EducationYearID = @EducationYearID) AND (StudentRecord.SubjectID = @SubjectID) AND (StudentsClass.ShiftID LIKE @ShiftID) AND (StudentsClass.SchoolID = @SchoolID) AND (Student.Status = N'Active')  
-                ORDER BY CASE WHEN ISNUMERIC(StudentsClass.RollNo) = 1 THEN CAST(REPLACE(REPLACE(StudentsClass.RollNo, '$', ''), ',', '') AS INT) ELSE 0 END">
+                <asp:SqlDataSource ID="ShowStudentClassSQL" runat="server" ConnectionString="<%$ ConnectionStrings:EducationConnectionString %>" SelectCommand="SELECT Student.StudentsName, Student.FathersName, StudentsClass.StudentID, StudentsClass.StudentClassID, Student.ID, StudentsClass.RollNo FROM StudentsClass INNER JOIN Student ON StudentsClass.StudentID = Student.StudentID INNER JOIN StudentRecord ON StudentsClass.StudentClassID = StudentRecord.StudentClassID  WHERE (StudentsClass.ClassID = @ClassID) AND (StudentsClass.SectionID LIKE @SectionID) AND (StudentsClass.SubjectGroupID LIKE @SubjectGroupID) AND (StudentsClass.EducationYearID = @EducationYearID) AND (StudentRecord.SubjectID = @SubjectID) AND (StudentsClass.ShiftID LIKE @ShiftID) AND (StudentsClass.SchoolID = @SchoolID) AND (Student.Status = N'Active')  
+            ORDER BY CASE WHEN ISNUMERIC(StudentsClass.RollNo) = 1 THEN CAST(REPLACE(REPLACE(StudentsClass.RollNo, '$', ''), ',', '') AS INT) ELSE 0 END">
                     <SelectParameters>
                         <asp:ControlParameter ControlID="ClassDropDownList" Name="ClassID" PropertyName="SelectedValue" />
                         <asp:ControlParameter ControlID="SectionDropDownList" Name="SectionID" PropertyName="SelectedValue" />
@@ -233,6 +411,27 @@
                 });
             });
 
+            // repeter check
+            $('#Repeater2 input[type="checkbox"]').each(function () {
+                if ($(this).prop('checked') == true) {
+                    alert($(this).val());
+                }
+            });
+
+            $("#AbsenceCheckBox").on('click', function () {
+                var $cb = $(this);
+                if ($cb.is(':checked')) {
+                    alert("checked");
+                }
+            });
+
+
+            //------
+
+            $(":checkbox").on('click', function () {
+                $(this).parents("tr:eq(0)").find(".MarksTextBox").prop("disabled", this.checked).val('');
+            });
+
             //on checked
             var isChecked = $("[id*=StudentsNameCheckbox]").is(":checked");
             if (isChecked) {
@@ -289,3 +488,7 @@
         }
     </script>
 </asp:Content>
+
+
+
+

@@ -390,6 +390,7 @@
     <Content Include="Employee\Payorder\Payorder_Monthly.aspx" />
     <Content Include="Employee\Salary_PaidDue_Report.aspx" />
     <Content Include="Employee\Salary_Sheet.aspx" />
+    <Content Include="Employee\SetEmployee_With_PayorderName.aspx" />
     <Content Include="Employee\Staff_Info.aspx" />
     <Content Include="Employee\Teacher_Allocated_Subjects.aspx" />
     <Content Include="Exam\Admit_Card\css\Custom.css" />
@@ -399,6 +400,7 @@
     <Content Include="Exam\Admit_Card\css\skin3.css" />
     <Content Include="Exam\Admit_Card\Multiple_Admit_Card.aspx" />
     <Content Include="Exam\Admit_Card\Old_AdmitCard.aspx" />
+    <Content Include="Exam\Input_Exam_Marks_WithSubExam.aspx" />
     <Content Include="Exam\Result\BanglaResult.aspx" />
     <Content Include="Exam\Result\Board_Result.aspx" />
     <Content Include="Exam\CSS\Input_Marks.css" />
@@ -435,6 +437,7 @@
     <Content Include="Exam\WeeklyExam\Weekly_Merit_Status_Results.aspx" />
     <Content Include="Handeler\Default\Default_Sign.jpg" />
     <Content Include="Handeler\FindDonar.asmx" />
+    <Content Include="ID_Cards\Student_ID_Cards.aspx" />
     <Content Include="JS\amount-in-word.js" />
     <Content Include="JS\attendance\api-methods.js" />
     <Content Include="JS\mui.min.js" />
@@ -1732,6 +1735,13 @@
     <Compile Include="Employee\Salary_Sheet.aspx.designer.cs">
       <DependentUpon>Salary_Sheet.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Employee\SetEmployee_With_PayorderName.aspx.cs">
+      <DependentUpon>SetEmployee_With_PayorderName.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Employee\SetEmployee_With_PayorderName.aspx.designer.cs">
+      <DependentUpon>SetEmployee_With_PayorderName.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Employee\Staff_Info.aspx.cs">
       <DependentUpon>Staff_Info.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1762,6 +1772,13 @@
     </Compile>
     <Compile Include="Exam\CumulativeResult\Cu_Exam.cs">
       <DependentUpon>Cu_Exam.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Exam\Input_Exam_Marks_WithSubExam.aspx.cs">
+      <DependentUpon>Input_Exam_Marks_WithSubExam.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Exam\Input_Exam_Marks_WithSubExam.aspx.designer.cs">
+      <DependentUpon>Input_Exam_Marks_WithSubExam.aspx</DependentUpon>
     </Compile>
     <Compile Include="Exam\Result\BanglaResult.aspx.cs">
       <DependentUpon>BanglaResult.aspx</DependentUpon>
@@ -2041,6 +2058,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ID_Cards\Student_ID_Cards.aspx.cs">
+      <DependentUpon>Student_ID_Cards.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ID_Cards\Student_ID_Cards.aspx.designer.cs">
+      <DependentUpon>Student_ID_Cards.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>

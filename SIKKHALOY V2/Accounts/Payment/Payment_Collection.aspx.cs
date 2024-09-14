@@ -19,7 +19,34 @@ namespace EDUCATION.COM.ACCOUNTS.Payment
             if (!IsPostBack)
             {
                 SelectedAccount();
+                if (GetLinkPageExist() != true)
+                {
+                    UpdateConcessionButton.Visible = false;
+                }
             }
+        }
+        private bool GetLinkPageExist()  // Concession button show/hide
+        {
+            bool flag = false;
+            try
+            {
+                SqlCommand AccountCmd = new SqlCommand("Select * from Link_Users where SchoolID = @SchoolID AND RegistrationID=@RegistrationID and LinkID=3074", con);
+                AccountCmd.Parameters.AddWithValue("@SchoolID", Session["SchoolID"].ToString());
+                AccountCmd.Parameters.AddWithValue("@RegistrationID", Session["RegistrationID"].ToString());
+                con.Open();
+                var dr1 = AccountCmd.ExecuteReader();
+                if (dr1.HasRows)
+                {
+                    flag = true;
+                }
+                con.Close();
+            }
+            catch
+            {
+
+            }
+            return flag;
+
         }
         private string Encrypt(string clearText)
         {
@@ -239,7 +266,41 @@ namespace EDUCATION.COM.ACCOUNTS.Payment
                 Response.Redirect(string.Format("Money_Receipt.aspx?mN_R={0}&s_icD={1}", MRid, Sid));
             }
         }
+        protected void UpdateConcessionButton_Click(object sender, EventArgs e)
+        {
+            CheckBox SingleCheckBox = new CheckBox();
+            foreach (GridViewRow Row in DueGridView.Rows)
+            {               
+                SingleCheckBox = Row.FindControl("DueCheckBox") as CheckBox;
+                TextBox DiscountTextBox = (TextBox)DueGridView.Rows[Row.RowIndex].FindControl("ConcessionTextBox");                
+                if (SingleCheckBox.Checked)
+                {                    
+                    string paid = DueGridView.DataKeys[Row.RowIndex]["PayOrderID"].ToString();
+                    Fee_DiscountSQL.UpdateParameters["PayOrderID"].DefaultValue = DueGridView.DataKeys[Row.RowIndex]["PayOrderID"].ToString();
+                    Fee_DiscountSQL.UpdateParameters["Discount"].DefaultValue = DiscountTextBox.Text;
+                    Fee_DiscountSQL.Update();
+                }
+            }
 
+            foreach (GridViewRow Row in OtherSessionGridView.Rows)
+            {
+                SingleCheckBox = Row.FindControl("Other_Session_CheckBox") as CheckBox;
+                TextBox DiscountTextBox = (TextBox)OtherSessionGridView.Rows[Row.RowIndex].FindControl("ConcessionTextBox");
+                if (SingleCheckBox.Checked)
+                {
+                    string paid = OtherSessionGridView.DataKeys[Row.RowIndex]["PayOrderID"].ToString();
+                    Fee_DiscountSQL.UpdateParameters["PayOrderID"].DefaultValue = OtherSessionGridView.DataKeys[Row.RowIndex]["PayOrderID"].ToString();
+                    Fee_DiscountSQL.UpdateParameters["Discount"].DefaultValue = DiscountTextBox.Text;
+                    Fee_DiscountSQL.Update();
+                }
+            }
+
+            con.Close();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "alert('Update Successfully!!')", true);
+            DueGridView.DataBind();
+            OtherSessionGridView.DataBind();
+
+        }
         protected void Print_LinkButton_Command(object sender, CommandEventArgs e)
         {
             string MRid = HttpUtility.UrlEncode(Encrypt(Convert.ToString(e.CommandArgument)));

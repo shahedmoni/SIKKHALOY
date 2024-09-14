@@ -1,6 +1,7 @@
-﻿<%@ Page Title="ID Cards" Language="C#" MasterPageFile="~/BASIC.Master" AutoEventWireup="true" CodeBehind="All_ID_Cards.aspx.cs" Inherits="EDUCATION.COM.ID_CARDS.All_ID_Cards" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/BASIC.Master" AutoEventWireup="true" CodeBehind="Student_ID_Cards.aspx.cs" Inherits="EDUCATION.COM.ID_Cards.Student_ID_Cards" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <%-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />--%>
     <style>
         #wrapper {
             display: grid;
@@ -10,23 +11,29 @@
 
             #wrapper > div {
                 position: relative;
-                border: 2px solid #0075d2; /*width: 323.52px; height: 204px;*/
+                width: 204px;
+                height: 314px;
             }
 
         #grid_Header {
-            margin-bottom: 8px;
-            background-color: #0075d2;
+            margin-bottom: 2px;
+            /*background-color: #0075d2;*/
             border-bottom: 2px solid #006bc8;
             color: #fff;
             text-align: center;
-            display: grid;
+            /*display: grid;*/
             grid-template-columns: 40px 1fr;
+            position: relative;
+            /*background-color: #02283D;*/
+            border-bottom-left-radius: 50%;
+            border-bottom-right-radius: 50%;
+            padding-bottom: 19px;
         }
 
-            #grid_Header img {
+        /*#grid_Header img {
                 height: 30px;
                 border-radius: 3px;
-            }
+            }*/
 
         .Hidden_Ins_Name {
             position: absolute;
@@ -34,10 +41,11 @@
             height: auto;
             width: auto;
             white-space: nowrap;
+            font-size: 14px;
         }
 
         .Institution_Dialog {
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 3.3px;
             line-height: 14px;
             text-align: center;
@@ -54,28 +62,45 @@
             width: 126px;
         }
 
-        #user-info {
-            margin-bottom: 20px;
-            display: grid;
-            grid-template-columns: 90px 1fr;
+        .IDCard-title {
+            margin: auto;
+            background-color: #0075d2;
+            border-radius: 3px;
+            color: #fff;
+            font-size: 15px;
+            padding: 1px 10px;
+            text-align: center;
+            width: 180px;
         }
 
-            #user-info img {
-                height: 85px;
-                width: 85px;
-            }
+        #user-info {
+            margin-bottom: 20px;
+            /*display: grid;*/
+            grid-template-columns: 90px 1fr;
+            margin-left: 9px;
+        }
 
-            #user-info ul {
-                margin: 5px 0 0 0;
-                padding-left: 5px;
-            }
+        .simg {
+            /*height: 85px;
+                width: 85px;*/
+            height: 70px;
+            width: 70px;
+            margin-top: -19px;
+            z-index: 1;
+            position: relative;
+        }
 
-                #user-info ul li {
-                    list-style: none;
-                    font-size: 12px;
-                    line-height: 1.5;
-                    color: #000;
-                }
+        #user-info ul {
+            margin: 5px 0 0 0;
+            padding-left: 5px;
+        }
+
+            #user-info ul li {
+                list-style: none;
+                font-size: 12px;
+                line-height: 16px;
+                color: #000;
+            }
 
         .c-user-name {
             font-weight: bold;
@@ -100,6 +125,10 @@
             font-size: 8.5pt;
         }
 
+        .headcolor {
+            background-color: #8000ff !important;
+        }
+
         @page {
             margin: 15px;
         }
@@ -109,16 +138,54 @@
                 display: none;
             }
         }
+
+        /*.color-output{height:200px; width:200px; border:5px solid #ccc}
+
+        .output span{    background: orange;    padding: 4px 17px;    display: inline-block;    color: #000;}*/
+
+
+        .color-output {
+            background-color: #0075d2;
+        }
+
+        .name-color-output {
+            background-color: #0075d2;
+        }
+
+        .add-color-output {
+            background-color: #0075d2;
+        }
+
+        .idcardborder {
+            border: 2px solid #0075d2;
+        }
+
+        /*li {
+            padding-left: 10px;
+        }
+
+            li a {
+                display: block;*/
+        /*color: white;*/
+        /*text-align: center;
+                padding: 16px;
+                text-decoration: none;
+            }
+
+        ul li input {
+            margin-left: 10px;
+        }*/
+        .table tbody tr td {
+            padding-left: 10px;
+            width: 100%;
+            text-align: right;
+        }
+        /*.output span{    background: orange;    padding: 4px 17px;    display: inline-block;    color: #000;}*/
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
-    <div class="row">
-        <div class="col-sm-12">
-            <h3>Students ID Cards  <a style="float: right" href="../ID_Cards/Student_ID_Cards.aspx">Student Custom ID Card</a></h3>
-        </div>
-    </div>
-    
+    <h3>Students ID Cards</h3>
 
     <div class="form-inline NoPrint">
         <div class="form-group">
@@ -182,42 +249,87 @@
         <div class="form-group">
             <input id="HeadlineText" type="text" placeholder="Change Title" class="form-control" />
         </div>
+        <div class="form-group">
+            <div class="dropdown">
+                <button class="btn btn-primary " type="button" data-toggle="dropdown">
+                    Choose Color
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li style="text-align: center"><a><b>Background Color</b></a></li>
+                    <li class="divider"></li>
+                    <asp:Table runat="server" CssClass="table">
+                        <asp:TableRow>
+                            <asp:TableCell>Head</asp:TableCell>
+                            <asp:TableCell><li><input type="color" class="getColor" /></li></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow>
+                            <asp:TableCell>Name</asp:TableCell>
+                            <asp:TableCell><li><input type="color" class="getnameColor" /></li></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow>
+                            <asp:TableCell>Address</asp:TableCell>
+                            <asp:TableCell><li><input type="color" class="getaddressColor" /></li></asp:TableCell>
+                        </asp:TableRow>
+                    </asp:Table>
+                    <li class="divider"></li>
+                    <li style="text-align: center"><a><b>Font Color</b></a></li>
+                    <li class="divider"></li>
+                    <asp:Table runat="server" CssClass="table">
+                        <asp:TableRow>
+                            <asp:TableCell>Head</asp:TableCell>
+                            <asp:TableCell><li><input type="color" class="getfontColor" /></li></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow>
+                            <asp:TableCell>Name</asp:TableCell>
+                            <asp:TableCell><li><input type="color" class="getfontnameColor" /></li></asp:TableCell>
+                        </asp:TableRow>
+                        <asp:TableRow>
+                            <asp:TableCell>Address</asp:TableCell>
+                            <asp:TableCell><li><input type="color" class="getfontaddressColor" /></li></asp:TableCell>
+                        </asp:TableRow>
+                    </asp:Table>
+                </ul>
+            </div>
+        </div>
+
     </div>
 
+    <br />
     <div class="alert alert-info NoPrint">print orientation landscape</div>
 
 
     <div id="wrapper">
         <asp:Repeater ID="IDCardRepeater" runat="server">
             <ItemTemplate>
-                <div>
-                    <div id="grid_Header">
-                        <div style="padding: 5px 0;">
-                            <img alt="No Logo" src="/Handeler/SchoolLogo.ashx?SLogo=<%#Eval("SchoolID") %>" />
+                <div class="idcardborder">
+                    <div id="grid_Header" class="color-output getfontColor">
+                        <img style="text-align: center; height: 30px" alt="No Logo" src="/Handeler/SchoolLogo.ashx?SLogo=<%#Eval("SchoolID") %>" />
+                        <div class="Ins_Name">
+                            <%# Eval("SchoolName") %>
                         </div>
-                        <div>
-                            <div class="Ins_Name">
-                                <%# Eval("SchoolName") %>
-                            </div>
-                            <div class="Hidden_Ins_Name">
-                                <%# Eval("SchoolName") %>
-                            </div>
-
-                            <div class="Institution_Dialog">
-                                <asp:Label ID="Label1" CssClass="Instit_Dialog" runat="server" Text='<%# Eval("Institution_Dialog") %>' />
-                            </div>
+                        <div class="Hidden_Ins_Name">
+                            <%# Eval("SchoolName") %>
+                        </div>
+                        <div class="Institution_Dialog">
+                            <asp:Label ID="Label1" CssClass="Instit_Dialog" runat="server" Text='<%# Eval("Institution_Dialog") %>' />
                         </div>
                     </div>
-                    <div class="iCard-title"></div>
+
+                    <div style="text-align: center;">
+                        <img src="/Handeler/Student_Id_Based_Photo.ashx?StudentID=<%#Eval("StudentID") %>" class="rounded-circle img-thumbnail simg" /><br />
+
+                    </div>
+                    <div class="IDCard-title name-color-output"><strong class=""><%#Eval("StudentsName") %></strong></div>
 
                     <div id="user-info">
-                        <div style="text-align: center;">
+                        <%--<div style="text-align: center;">
                             <img src="/Handeler/Student_Id_Based_Photo.ashx?StudentID=<%#Eval("StudentID") %>" class="rounded-circle img-thumbnail" /><br />
                             <strong class="d-block"><%#Eval("ID") %></strong>
-                        </div>
+                        </div>--%>
                         <div>
                             <ul>
-                                <li class="c-user-name"><%# Eval("StudentsName")%></li>
+                                <li class="c-user-name">Student ID : <%# Eval("ID")%></li>
                                 <li>Class: <%# Eval("Class") %>, Roll No: <%# Eval("RollNo") %></li>
                                 <li>Phone: <%# Eval("SMSPhoneNo") %></li>
                                 <li>Blood Group: <%# Eval("BloodGroup") %></li>
@@ -227,7 +339,7 @@
                     </div>
 
                     <div class="sign">Principal signature</div>
-                    <div class="c-address">
+                    <div class="c-address add-color-output">
                         <%# Eval("Address") %>
                     </div>
                 </div>
@@ -253,7 +365,6 @@
             <asp:ControlParameter ControlID="Find_ID_TextBox" Name="IDs" PropertyName="Text" />
         </SelectParameters>
     </asp:SqlDataSource>
-
 
     <script>
         $(function () {
@@ -317,8 +428,56 @@
                 $(".iCard-title").text(localStorage.Headline);
             }
             else {
-                $(".iCard-title").text("Student ID Card");
+                $(".iCard-title").text("Student ID :");
             }
         });
+
+        // Background Color
+
+        $(".getColor").on("change", function () {
+            //Get Color
+            var color = $(".getColor").val();
+            //apply cuurent color to div
+            $(".color-output").css("background", color);
+            $(".idcardborder").css("border-color", color);
+            $(".headcolor").css("background", color);
+        })
+        $(".getnameColor").on("change", function () {
+            //Get Color
+            var color = $(".getnameColor").val();
+            //apply cuurent color to div
+            $(".name-color-output").css("background", color);
+        })
+        $(".getaddressColor").on("change", function () {
+            //Get Color
+            var color = $(".getaddressColor").val();
+            //apply cuurent color to div
+            $(".add-color-output").css("background", color);
+        })
+
+        //  forcolor
+
+        $(".getfontColor").on("change", function () {
+            //Get Color
+            var color = $(".getfontColor").val();
+            //apply cuurent color to font
+            $(".color-output").css("color", color);
+
+        })
+        $(".getfontnameColor").on("change", function () {
+            //Get Color
+            var color = $(".getfontnameColor").val();
+            //apply cuurent color to student Name
+            $(".name-color-output").css("color", color);
+        })
+        $(".getfontaddressColor").on("change", function () {
+            //Get Color
+            var color = $(".getfontaddressColor").val();
+            //apply cuurent color to Address
+            $(".add-color-output").css("color", color);
+        })
+
+
+
     </script>
 </asp:Content>
