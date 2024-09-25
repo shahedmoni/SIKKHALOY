@@ -198,7 +198,7 @@
                 </asp:SqlDataSource>
             </div>
 
-            <%if (GroupGridView.Rows.Count > 0)
+            <%if (StudentsGridView.Rows.Count > 0)
                 { %>
             <div class="form-inline">
                 <asp:CheckBox ID="KeepPayOrderCheckbox" runat="server" Text="KEAP PAY ORDER" />

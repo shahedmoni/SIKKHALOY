@@ -137,7 +137,9 @@ namespace EDUCATION.COM.Exam
 
                     string studentId = StudentsGridView.DataKeys[row.RowIndex]["StudentID"].ToString();
 
-                    SqlCommand cmd = new SqlCommand("Select MarksObtained,AbsenceStatus from Exam_Obtain_Marks Where SchoolID=1012 and StudentID='" + studentId + "' and ExamID =@ExamID", con);
+                    string schoolId = Session["SchoolID"].ToString();
+
+                    SqlCommand cmd = new SqlCommand("Select MarksObtained,AbsenceStatus from Exam_Obtain_Marks Where SchoolID='"+ schoolId + "' and StudentID='" + studentId + "' and ExamID =@ExamID", con);
                     //cmd.Parameters.AddWithValue("@StudentClassID", StudentsGridView.DataKeys[e.Item.ItemIndex]["StudentClassID"].ToString());
                     cmd.Parameters.AddWithValue("@SubjectID", SubjectDropDownList.SelectedValue);
                     cmd.Parameters.AddWithValue("@ExamID", ExamDropDownList.SelectedValue);
@@ -151,48 +153,51 @@ namespace EDUCATION.COM.Exam
                     da.Fill(dt);
                     con.Close();
 
-
-                    foreach (DataListItem itm in StylDataList.Items)  ////  Starting point here 05/09/2024
+                    if(StylDataList!=null)
                     {
-                        string studentclassId = StudentsGridView.DataKeys[row.RowIndex]["StudentClassID"].ToString();
-                        string subject = SubjectDropDownList.SelectedItem.Text.ToString();
-                        string exam = ExamDropDownList.SelectedItem.Text.ToString();
-                        if (SubExamDownList.SelectedValue != "")
+                        foreach (DataListItem itm in StylDataList.Items)  ////  Starting point here 05/09/2024
                         {
-                            string subexam = SubExamDownList.SelectedItem.Text.ToString();
-                        }
-
-
-
-
-                        //SqlCommand cmd = new SqlCommand("Select MarksObtained,AbsenceStatus from Exam_Obtain_Marks Where StudentClassID = @StudentClassID and SubjectID = @SubjectID and ExamID = @ExamID and (SubExamID = @SubExamID or SubExamID is null)", con);
-                        //cmd.Parameters.AddWithValue("@StudentClassID", StudentsGridView.DataKeys[e.Item.ItemIndex]["StudentClassID"].ToString());
-                        //cmd.Parameters.AddWithValue("@SubjectID", SubjectDropDownList.SelectedValue);
-                        //cmd.Parameters.AddWithValue("@ExamID", ExamDropDownList.SelectedValue);
-                        //cmd.Parameters.AddWithValue("@SubExamID", SubExamDownList.SelectedValue);
-
-
-
-                        if (dt.Rows.Count > 0)
-                        {
-
-                            string marks= dt.Rows[0]["MarksObtained"].ToString();
-
-                            //(e.Ite.FindControl("MarksTextBox") as TextBox).Text = dt.Rows[0]["MarksObtained"].ToString();
-
-                            Session["obtainMarks"]= marks;
-
-                            TextBox obtaintextbox = (TextBox)itm.FindControl("MarksTextBox");
-
-                            obtaintextbox.Text = marks;
-
-                            if (dt.Rows[0]["AbsenceStatus"].ToString() == "Absent")
+                            string studentclassId = StudentsGridView.DataKeys[row.RowIndex]["StudentClassID"].ToString();
+                            string subject = SubjectDropDownList.SelectedItem.Text.ToString();
+                            string exam = ExamDropDownList.SelectedItem.Text.ToString();
+                            if (SubExamDownList.SelectedValue != "")
                             {
-                                (e.Row.FindControl("AbsenceCheckBox") as CheckBox).Checked = true;
-                                (e.Row.FindControl("MarksTextBox") as TextBox).Enabled = false;
+                                string subexam = SubExamDownList.SelectedItem.Text.ToString();
+                            }
+
+
+
+
+                            //SqlCommand cmd = new SqlCommand("Select MarksObtained,AbsenceStatus from Exam_Obtain_Marks Where StudentClassID = @StudentClassID and SubjectID = @SubjectID and ExamID = @ExamID and (SubExamID = @SubExamID or SubExamID is null)", con);
+                            //cmd.Parameters.AddWithValue("@StudentClassID", StudentsGridView.DataKeys[e.Item.ItemIndex]["StudentClassID"].ToString());
+                            //cmd.Parameters.AddWithValue("@SubjectID", SubjectDropDownList.SelectedValue);
+                            //cmd.Parameters.AddWithValue("@ExamID", ExamDropDownList.SelectedValue);
+                            //cmd.Parameters.AddWithValue("@SubExamID", SubExamDownList.SelectedValue);
+
+
+
+                            if (dt.Rows.Count > 0)
+                            {
+
+                                string marks = dt.Rows[0]["MarksObtained"].ToString();
+
+                                //(e.Ite.FindControl("MarksTextBox") as TextBox).Text = dt.Rows[0]["MarksObtained"].ToString();
+
+                                Session["obtainMarks"] = marks;
+
+                                TextBox obtaintextbox = (TextBox)itm.FindControl("MarksTextBox");
+
+                                obtaintextbox.Text = marks;
+
+                                if (dt.Rows[0]["AbsenceStatus"].ToString() == "Absent")
+                                {
+                                    (e.Row.FindControl("AbsenceCheckBox") as CheckBox).Checked = true;
+                                    (e.Row.FindControl("MarksTextBox") as TextBox).Enabled = false;
+                                }
                             }
                         }
                     }
+                    
                 }
 
                 
@@ -514,14 +519,24 @@ namespace EDUCATION.COM.Exam
             double PassMark = Convert.ToDouble(FmPmFormView.DataKey["PassMark"].ToString());
             double PassPercentage = Convert.ToDouble(FmPmFormView.DataKey["PassPercentage"].ToString());
 
-
             
 
 
 
             foreach (GridViewRow row in StudentsGridView.Rows)
             {
-                TextBox ObtainedMarks = (TextBox)row.FindControl("MarksTextBox");
+                DataList StylDataList = (DataList)row.FindControl("StylDataList");
+
+                foreach (DataListItem itm in StylDataList.Items)  ////  Starting point here 05/09/2024
+                {
+                    string value = itm.FindControl("MarksTextBox").ToString();
+                
+                }
+
+
+
+
+                    TextBox ObtainedMarks = (TextBox)row.FindControl("MarksTextBox");
 
                 if (ObtainedMarks.Text.Trim() != "")
                 {

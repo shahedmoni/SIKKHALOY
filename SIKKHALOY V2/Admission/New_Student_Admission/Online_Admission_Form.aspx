@@ -79,25 +79,6 @@
         </fieldset>
 
         <fieldset class="border p-2 mb-3">
-            <legend class="w-auto">Previous Institution Information (If Any)</legend>
-            <div class="row">
-                <div class="col">
-                    Institution Name:<div class="border-bottom"></div>
-                </div>
-                <div class="w-100"></div>
-                <div class="col">
-                    Class:<div class="border-bottom"></div>
-                </div>
-                <div class="col">
-                    Exam Year:<div class="border-bottom"></div>
-                </div>
-                <div class="col">
-                    Grade:<div class="border-bottom"></div>
-                </div>
-            </div>
-        </fieldset>
-
-        <fieldset class="border p-2 mb-3">
             <legend class="w-auto">Second Guardian Information(Optional)</legend>
             <div class="row">
                 <div class="col">
@@ -134,4 +115,7 @@
             </div>
         </fieldset>
     </div>
+       <div>
+       <p style="float:right;border-top : solid 1px #808080;margin-top:190px">Authority Signeture</p>
+   </div>
 </asp:Content>

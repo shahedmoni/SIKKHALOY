@@ -11,7 +11,7 @@ namespace EDUCATION.COM.Exam
 {
 
 
-    public partial class Input_Exam_Marks
+    public partial class TestSubExam
     {
 
         /// <summary>
@@ -177,15 +177,6 @@ namespace EDUCATION.COM.Exam
         protected global::System.Web.UI.WebControls.SqlDataSource SubExamSQL;
 
         /// <summary>
-        /// SubExamRequired control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator SubExamRequired;
-
-        /// <summary>
         /// ShowStudentButton control.
         /// </summary>
         /// <remarks>
@@ -238,6 +229,24 @@ namespace EDUCATION.COM.Exam
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource ShowStudentClassSQL;
+
+        /// <summary>
+        /// SubExamSQL1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SubExamSQL1;
+
+        /// <summary>
+        /// FullMarksSQL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource FullMarksSQL;
 
         /// <summary>
         /// SubmitButton control.

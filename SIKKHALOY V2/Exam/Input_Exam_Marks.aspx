@@ -1,7 +1,18 @@
-﻿<%@ Page Title="Exam Marks Input" Language="C#" MasterPageFile="~/BASIC.Master" AutoEventWireup="true" CodeBehind="Input_Exam_Marks.aspx.cs" Inherits="EDUCATION.COM.Exam.Input_Exam_Marks" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/BASIC.Master" AutoEventWireup="true" CodeBehind="Input_Exam_Marks.aspx.cs" Inherits="EDUCATION.COM.Exam.TestSubExam" %>
+
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/Input_Marks.css?v=3.1" rel="stylesheet" />
+    <style>
+        .floating {
+            float: left;
+            overflow: hidden;
+        }
+        .form-control {
+  min-width: 80px;
+  text-align: center;
+}
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <asp:UpdatePanel ID="ContainUpdatePanel" runat="server">
@@ -98,7 +109,7 @@
                             <asp:ControlParameter ControlID="ExamDropDownList" Name="ExamID" PropertyName="SelectedValue" />
                         </SelectParameters>
                     </asp:SqlDataSource>
-                    <asp:RequiredFieldValidator ID="SubExamRequired" runat="server" ControlToValidate="SubExamDownList" CssClass="EroorStar" ErrorMessage="Select sub-exam" ValidationGroup="1" Enabled="False">*</asp:RequiredFieldValidator>
+                    <%--<asp:RequiredFieldValidator ID="SubExamRequired" runat="server" ControlToValidate="SubExamDownList" CssClass="EroorStar" ErrorMessage="Select sub-exam" ValidationGroup="1" Enabled="False">*</asp:RequiredFieldValidator>--%>
                 </div>
 
                 <div class="form-group">
@@ -140,13 +151,74 @@
 
             <div class="table-responsive mb-3">
                 <asp:CheckBox CssClass="showHideName" ID="StudentsNameCheckbox" Text="Hide Student Name" runat="server" />
-                <asp:GridView ID="StudentsGridView" runat="server" AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false" CssClass="mGrid" DataSourceID="ShowStudentClassSQL" DataKeyNames="StudentID,StudentClassID" OnRowDataBound="StudentsGridView_RowDataBound" Visible="False" AllowSorting="True">
+                <asp:GridView ID="StudentsGridView" runat="server" AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="false" CssClass="mGrid" DataSourceID="ShowStudentClassSQL" DataKeyNames="StudentID,StudentClassID" OnRowDataBound="StudentsGridView_RowDataBound" Visible="False" AllowSorting="True" Width="100%">
+                    <AlternatingRowStyle CssClass="alt" />
                     <Columns>
                         <asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
                         <asp:BoundField DataField="StudentsName" HeaderText="Name" SortExpression="StudentsName" />
                         <%--<asp:BoundField DataField="FathersName" HeaderText="Father's Name" SortExpression="FathersName" />--%>
                         <asp:BoundField DataField="RollNo" HeaderText="Roll No." SortExpression="RollNo" />
 
+                        <asp:TemplateField HeaderText="Obtain Marks">
+                            <ItemTemplate>
+
+                                <!-------Data list-------->
+
+                                <table style="width: 100%; padding: 0">
+                                    <tr>
+                                        <asp:DataList ID="SubExamlDataList" runat="server" DataSourceID="SubExamSQL1" RepeatDirection="Horizontal" RepeatLayout="Flow"
+                                            Width="100%">
+                                            <ItemTemplate>
+
+
+
+
+                                                <td>
+
+                                                    <table style="width:300px;">
+                                                        <tr style="background-color:#d6e1f4">
+                                                            <td colspan="2" style="border-bottom:solid 1px brown"><b style="font-size:16px; color:brown;"> <%# Eval("SubExamName") %></b>
+
+                                                                <br />
+
+
+                                                               <b>FM:</b><asp:Label ID="lblFullMarks" Text='<%# Eval("FullMarks") %>' runat="server"></asp:Label>
+                                                               <b style="padding-left:20px;"> PM:</b><asp:Label ID="labelPassMark" Text='<%# Eval("Sub_PassMarks") %>' runat="server"></asp:Label>
+                                                                <b style="padding-left:20px;">Pass %:</b><asp:Label ID="labelParcentage" Text='<%# Eval("PassPercentage") %>' runat="server"></asp:Label>
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                        <tr>
+                                                            <td><asp:TextBox ID="MarksTextBox" runat="server" CssClass="InputVibl form-control" autocomplete="off" onDrop="blur();return false;" onpaste="return false" onkeypress="return isNumberKey(event)"></asp:TextBox></td>
+                                                            <td><asp:CheckBox ID="AbsenceCheckBox" runat="server" Text="Absence" /></td>
+                                                        </tr>
+                                                        
+
+                                                    </table>
+                                                    <%--<asp:Label runat="server" ID="subexamID" Text='<%# Eval("SubExamID") %>'></asp:Label>--%>
+
+                                                    <asp:HiddenField ID="subexamID" runat="server" Value='<%# Eval("SubExamID") %>' />
+
+
+
+                                                    
+
+                                                </td>
+                                                <td>
+                                                    <div style="margin-top: 40px">
+                                                        
+                                                    </div>
+                                                </td>
+
+
+
+                                            </ItemTemplate>
+                                        </asp:DataList>
+                                    </tr>
+                                </table>
+                            </ItemTemplate>
+                            <ItemStyle Width="100px" />
+                        </asp:TemplateField>
                         <asp:TemplateField HeaderText="Obtain Marks">
                             <ItemTemplate>
                                 <asp:TextBox ID="MarksTextBox" runat="server" CssClass="InputVibl form-control" autocomplete="off" onDrop="blur();return false;" onpaste="return false" onkeypress="return isNumberKey(event)"></asp:TextBox>
@@ -174,8 +246,29 @@
                         <asp:SessionParameter Name="SchoolID" SessionField="SchoolID" />
                     </SelectParameters>
                 </asp:SqlDataSource>
-            </div>
 
+                <asp:SqlDataSource ID="SubExamSQL1" runat="server" ConnectionString="<%$ ConnectionStrings:EducationConnectionString %>" SelectCommand="SELECT Exam_SubExam_Name.SubExamID, Exam_SubExam_Name.SubExamName,Exam_Full_Marks.FullMarks,Exam_Full_Marks.Sub_PassMarks, ROUND(Exam_Full_Marks.Sub_PassMarks * 100 / Exam_Full_Marks.FullMarks, 2, 0) AS PassPercentage FROM Exam_SubExam_Name INNER JOIN Exam_Full_Marks ON Exam_SubExam_Name.SubExamID = Exam_Full_Marks.SubExamID WHERE (Exam_Full_Marks.SubjectID = @SubjectID) AND (Exam_Full_Marks.ClassID = @ClassID) AND (Exam_SubExam_Name.SchoolID = @SchoolID) AND (Exam_Full_Marks.ExamID = @ExamID) AND (Exam_Full_Marks.EducationYearID = @EducationYearID)">
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="SubjectDropDownList" Name="SubjectID" PropertyName="SelectedValue" />
+                        <asp:ControlParameter ControlID="ClassDropDownList" Name="ClassID" PropertyName="SelectedValue" />
+                        <asp:SessionParameter Name="SchoolID" SessionField="SchoolID" />
+                        <asp:SessionParameter Name="EducationYearID" SessionField="Edu_Year" />
+                        <asp:ControlParameter ControlID="ExamDropDownList" Name="ExamID" PropertyName="SelectedValue" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+
+                <asp:SqlDataSource ID="FullMarksSQL" runat="server" ConnectionString="<%$ ConnectionStrings:EducationConnectionString %>" SelectCommand="SELECT Sub_PassMarks AS PassMark, FullMarks AS FullMark, ROUND(Sub_PassMarks * 100 / FullMarks, 2, 0) AS PassPercentage FROM Exam_Full_Marks WHERE (SchoolID = @SchoolID) AND (SubjectID = @SubjectID) AND (ExamID = @ExamID) AND (ClassID = @ClassID)  AND (EducationYearID = @EducationYearID)">
+                    <SelectParameters>
+                        <asp:SessionParameter Name="SchoolID" SessionField="SchoolID" />
+                        <asp:ControlParameter ControlID="SubjectDropDownList" DefaultValue="" Name="SubjectID" PropertyName="SelectedValue" Type="Int32" />
+                        <asp:ControlParameter ControlID="ExamDropDownList" DefaultValue="" Name="ExamID" PropertyName="SelectedValue" Type="Int32" />
+                        <asp:ControlParameter ControlID="ClassDropDownList" DefaultValue="" Name="ClassID" PropertyName="SelectedValue" Type="Int32" />
+                        <%--<asp:Parameter DefaultValue="" Name="SubExamID" Type="Int32" />--%>
+                        <asp:SessionParameter Name="EducationYearID" SessionField="Edu_Year" />
+                    </SelectParameters>
+                </asp:SqlDataSource>
+
+            </div>
             <div class="hide_Cont">
                 <div class="alert alert-warning NoPrint">After Marks Input Or Existing Marks Change, You have to Publish Result</div>
                 <asp:Button ID="SubmitButton" runat="server" CssClass="btn btn-primary" OnClick="SubmitButton_Click" Text="Submit" ValidationGroup="1" Visible="False" />
@@ -265,6 +358,10 @@
 
             window.onbeforeunload = DisableButton;
         });
+
+        function checkchanged(obj) {
+            alert(obj.checked)
+        }
 
         function isNumberKey(a) { a = a.which ? a.which : event.keyCode; return 46 != a && 31 < a && (48 > a || 57 < a) ? !1 : !0 };
 

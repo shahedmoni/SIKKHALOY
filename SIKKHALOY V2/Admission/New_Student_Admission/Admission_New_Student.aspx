@@ -107,6 +107,8 @@
                     <asp:TextBox ID="StudentLocalAddressTextBox" runat="server" TextMode="MultiLine" CssClass="form-control"></asp:TextBox>
                 </div>
             </div>
+
+
             <div class="form-group">
                 <label>Student&#39;s photo</label><br />
                 <input name="Student_photo" type="file" accept=".png,.jpg" />
@@ -142,7 +144,7 @@
                     <asp:TextBox ID="MotherOccupationTextBox" runat="server" CssClass="form-control"></asp:TextBox>
                 </div>
             </div>
-
+            
 
             <div class="alert alert-success mt-5">Previous Institution Information (If Any)</div>
             <div class="form-group">
