@@ -2,6 +2,105 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CSS/Payment_Collection.css?version=1.0.0" rel="stylesheet" />
+
+    <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+    <style>
+        .PD_Name_Class {
+            color: #282828;
+            font-size: 18px;
+        }
+
+        .modal-body {
+            max-height: 500px;
+            overflow: auto;
+        }
+
+        .Print_ins_Name {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #000;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #000;
+            display: none;
+        }
+
+        #Print_InsName {
+            font-size: 30px;
+        }
+
+        #P_ClassName {
+            font-size: 15px;
+        }
+
+        .info {
+            width: 100%;
+        }
+
+            .info ul {
+                margin: 0;
+                padding: 0;
+            }
+
+                .info ul li {
+                    border-bottom: 1px solid #d6e0eb;
+                    color: #5d6772;
+                    font-size: 15px;
+                    line-height: 23px;
+                    list-style: outside none none;
+                    margin: 6px 0 0;
+                    padding-bottom: 5px;
+                    padding-left: 2px;
+                }
+
+                    .info ul li:last-child {
+                        border-bottom: none;
+                    }
+
+        .modalPopup {
+            background-color: #FFFFFF;
+            width: 100%;
+            border: 3px solid #0DA9D0;
+            border-radius: 12px;
+            padding: 0;
+        }
+
+            .modalPopup .header {
+                background-color: #2FBDF1;
+                height: 30px;
+                color: White;
+                line-height: 30px;
+                text-align: center;
+                font-weight: bold;
+            }
+
+            .modalPopup .body {
+                min-height: 50px;
+                line-height: 30px;
+                text-align: center;
+                padding: 5px;
+            }
+
+            .modalPopup .footer {
+                padding: 3px;
+            }
+
+            .modalPopup .button {
+                height: 23px;
+                color: White;
+                line-height: 23px;
+                text-align: center;
+                font-weight: bold;
+                cursor: pointer;
+                background-color: #9F9F9F;
+                border: 1px solid #5C5C5C;
+            }
+
+        @media print {
+            .noprint {
+                display: none
+            }
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
@@ -77,6 +176,11 @@
                                     <ItemStyle HorizontalAlign="Left" />
                                 </asp:TemplateField>
                                 <asp:TemplateField HeaderText="Paid">
+                                    <FooterTemplate>
+                                        <button id="Viwallbutton0" class="btn btn-outline-success btn-md m-0" data-target="#myModal" data-toggle="modal" type="button">
+                                            View All
+                                        </button>
+                                    </FooterTemplate>
                                     <ItemTemplate>
                                         <%# Eval("TotalAmount") %> Tk
                                      <small class="d-block">
@@ -97,6 +201,7 @@ ORDER BY Income_MoneyReceipt.PaidDate DESC">
                                 <asp:SessionParameter Name="SchoolID" SessionField="SchoolID" />
                             </SelectParameters>
                         </asp:SqlDataSource>
+
                     </div>
 
                     <!--Paid Record Modal -->
@@ -154,6 +259,17 @@ ORDER BY Income_MoneyReceipt.PaidDate DESC">
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
+
+
+            <%if (PaidRecordGridView.Rows.Count > 0)
+                { %>
+            <div class="form-group">
+
+                <button id="Viwallbutton" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-outline-success btn-md m-0">View All</button>
+
+            </div>
+
+            <%} %>
         </div>
     </div>
 
@@ -394,8 +510,102 @@ ORDER BY Income_PayOrder.EndDate"
         </div>
     </div>
 
+
+
+
     <!--bottom sticky total amount-->
     <div id="grand-total-fixed"></div>
+
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog" tabindex="-1" style="width: 100%">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Student's Paid Records</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="modalDiv">
+                    <asp:UpdatePanel ID="upnlUsers" runat="server">
+                        <ContentTemplate>
+                            <asp:Panel ID="ExportPanel" CssClass="AllDueP" runat="server">
+                                <div class="Print_ins_Name" style="text-align: center;font-size:20px;font-weight:bold;padding-bottom:5px">
+                                    <label id="Print_InsName"></label>
+
+                                </div>
+                                <div style="text-align: center">
+                                    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" HorizontalAlign="Center" CssClass="modalPopup" DataSourceID="AllPaidRecordSQL">
+                                        <Columns>
+                                            <asp:TemplateField HeaderText="Receipt Number">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton ID="MSNLinkButton" runat="server" CommandArgument='<%# Eval("MoneyReceiptID") %>' Text='<%# Eval("MoneyReceipt_SN") %>' ToolTip="Click To Details" OnCommand="MSNLinkButton_Command" />
+
+                                                </ItemTemplate>
+
+                                                <HeaderStyle HorizontalAlign="Center" />
+                                                <ItemStyle HorizontalAlign="Center" />
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="Paid Date & Time">
+                                                <ItemTemplate>
+
+                                                    <small class="d-block"><%# Eval("PaidDate", "{0:d-MMM-yy (hh:mm tt)}") %></small>
+                                                </ItemTemplate>
+
+                                                <HeaderStyle HorizontalAlign="Center" />
+                                                <ItemStyle HorizontalAlign="Center" />
+                                            </asp:TemplateField>
+
+
+                                            <asp:TemplateField HeaderText="Paid Amount">
+                                                <ItemTemplate>
+                                                    <%# Eval("TotalAmount") %> Tk
+       <small class="d-block">
+                                                </ItemTemplate>
+                                                <HeaderStyle HorizontalAlign="Center" />
+                                                <ItemStyle HorizontalAlign="Center" />
+                                            </asp:TemplateField>
+
+                                            <asp:TemplateField HeaderText=" Re-Print">
+                                                <ItemTemplate>
+
+                                                    <asp:LinkButton ID="Print_LinkButton" runat="server" CommandArgument='<%# Eval("MoneyReceiptID") %>' ToolTip="Click To Print" OnCommand="Print_LinkButton_Command"><i class="fa fa-print"></i> Print</asp:LinkButton></small>
+                                                </ItemTemplate>
+                                                <HeaderStyle HorizontalAlign="Center" />
+                                                <ItemStyle HorizontalAlign="Center" />
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText=" Received By">
+                                                <ItemTemplate>
+                                                    <%# Eval("Name") %>
+                                                </ItemTemplate>
+                                                <HeaderStyle HorizontalAlign="Center" />
+                                                <ItemStyle HorizontalAlign="Center" />
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+
+                                <asp:SqlDataSource ID="AllPaidRecordSQL" runat="server" ConnectionString="<%$ ConnectionStrings:EducationConnectionString %>"
+                                    SelectCommand="SELECT Income_MoneyReceipt.MoneyReceipt_SN, Income_MoneyReceipt.TotalAmount, Income_MoneyReceipt.PaidDate, Income_MoneyReceipt.MoneyReceiptID,Admin.FirstName + ' ' + Admin.LastName AS Name FROM Income_MoneyReceipt INNER JOIN Student ON Income_MoneyReceipt.StudentID = Student.StudentID Inner join Admin ON Income_MoneyReceipt.RegistrationID=Admin.RegistrationID WHERE (Income_MoneyReceipt.EducationYearID = @EducationYearID) AND (Student.ID = @ID) AND (Income_MoneyReceipt.SchoolID = @SchoolID)
+                                    ORDER BY Income_MoneyReceipt.PaidDate DESC">
+                                    <SelectParameters>
+                                        <asp:SessionParameter Name="EducationYearID" SessionField="Edu_Year" />
+                                        <asp:ControlParameter ControlID="SearchIDTextBox" Name="ID" PropertyName="Text" />
+                                        <asp:SessionParameter Name="SchoolID" SessionField="SchoolID" />
+                                    </SelectParameters>
+                                </asp:SqlDataSource>
+                            </asp:Panel>
+                        </ContentTemplate>
+
+                    </asp:UpdatePanel>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary print" onclick="PrintContent();">Print</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         const inputFindId = document.getElementById("<%=SearchIDTextBox.ClientID%>");
@@ -416,6 +626,49 @@ ORDER BY Income_PayOrder.EndDate"
             },
         });
 
+        function PrintContent() {
+            $(".Print_ins_Name").show();
+            $("#Print_InsName").text($("#InstitutionName").text());
+
+            var DocumentContainer = document.getElementById('modalDiv');
+            var WindowObject = window.open("", "PrintWindow",
+                "width=800,height=650,top=50, left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+            WindowObject.document.write();
+            WindowObject.document.write('<link rel="stylesheet" type="text/css" href="path-to-my-stylesheet.css">')
+            WindowObject.document.writeln(DocumentContainer.innerHTML);
+            WindowObject.document.close();
+            WindowObject.focus();
+            WindowObject.print();
+            WindowObject.close();
+        }
+
+
+
+        function Modal_Info_Prnt() {
+            /*$(".Print_ins_Name").show();*/
+            /*$("#Print_InsName").text($("#InstitutionName").text());*/
+
+
+            $('#modalDiv').css({ 'height': 'auto', 'overflow': 'auto' }).removeClass('modal-body');
+            /*$('#myModal').modal('hide');*/
+
+            setTimeout(function () {
+                $('#modalDiv').addClass('modal-body');
+            }, 1000);
+
+            $("#modalDiv").printThis({
+                debug: false,
+                importCSS: true,
+                importStyle: true,
+                printContainer: true,
+                //loadCSS: "CSS/Present_Due.css",
+                pageTitle: "Current Due",
+                removeInline: false,
+                printDelay: 200,
+                header: null,
+                formValues: true
+            });
+        }
         //student id press enter to submit
         inputFindId.addEventListener("keyup", function (event) {
             if (event.keyCode === 13) {
@@ -521,5 +774,14 @@ ORDER BY Income_PayOrder.EndDate"
                 $('#grand-total-fixed').fadeIn();
             }
         });
+
+        $(document).ready(function () {
+            function openModal() {
+                $('#myModal').modal('show');
+            }
+        });
+
+
+
     </script>
 </asp:Content>

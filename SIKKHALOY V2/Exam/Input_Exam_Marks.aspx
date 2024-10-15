@@ -12,13 +12,24 @@
   min-width: 80px;
   text-align: center;
 }
+                .fmpmp {
+            font-size:10px;
+            font-style:italic;
+        }
+.mGrid td {
+  padding-top:0 !important;
+  border: 1px solid #dee2e6;
+  color: #000;
+  font-size: .9rem;
+  font-weight: 300;
+}
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="body" runat="server">
     <asp:UpdatePanel ID="ContainUpdatePanel" runat="server">
         <ContentTemplate>
-            <h3>Student's Exam Marks (Input/Modify) <small id="Total_Student"></small></h3>
-
+           
+             <h3>Student's Exam Marks (Input/Modify) TotalStudent : <asp:Label runat="server" ID="totalStudent"></asp:Label></h3>
             <div class=" form-inline d-print-none">
                 <div class="form-group">
                     <asp:DropDownList ID="ExamDropDownList" runat="server" AutoPostBack="True" CssClass="form-control" DataSourceID="ExamSQL" DataTextField="ExamName" DataValueField="ExamID" OnSelectedIndexChanged="ExamDropDownList_SelectedIndexChanged" AppendDataBoundItems="True">
@@ -111,10 +122,10 @@
                     </asp:SqlDataSource>
                     <%--<asp:RequiredFieldValidator ID="SubExamRequired" runat="server" ControlToValidate="SubExamDownList" CssClass="EroorStar" ErrorMessage="Select sub-exam" ValidationGroup="1" Enabled="False">*</asp:RequiredFieldValidator>--%>
                 </div>
-
-                <div class="form-group">
+                  <div class="form-group">
                     <asp:Button ID="ShowStudentButton" runat="server" CssClass="btn btn-primary" OnClick="ShowStudentButton_Click" Text="Show Student" ValidationGroup="1" />
                 </div>
+
             </div>
 
             <asp:FormView ID="FmPmFormView" CssClass="hide_Cont" runat="server" DataKeyNames="FullMark,PassMark,PassPercentage" DataSourceID="PassMarkFullMarkSQL" Width="100%" Visible="False">
@@ -164,64 +175,52 @@
 
                                 <!-------Data list-------->
 
-                                <table style="width: 100%; padding: 0">
-                                    <tr>
-                                        <asp:DataList ID="SubExamlDataList" runat="server" DataSourceID="SubExamSQL1" RepeatDirection="Horizontal" RepeatLayout="Flow"
-                                            Width="100%">
-                                            <ItemTemplate>
+                              <table style="width: 100%; padding: 0">
+    <tr>
+        <asp:DataList ID="SubExamlDataList" runat="server" DataSourceID="SubExamSQL1" RepeatDirection="Horizontal" RepeatLayout="Flow"
+            Width="100%">
+            <ItemTemplate>
+                <td>
+                    <table style="width:100%;padding:0">
+                        <tr style="background-color: #d6e1f4;padding:0">
+                            <td colspan="2" style="border-bottom: solid 1px brown;padding:0"><b style="font-size: 16px; color: brown;"><%# Eval("SubExamName") %></b>
+
+                                <br />
 
 
+                                <b style="color: brown;font-size: 10px;">FM:</b><asp:Label ID="lblFullMarks" Text='<%# Eval("FullMarks ") %>' runat="server" CssClass="fmpmp"></asp:Label>
+                                <b style="color: brown;font-size: 10px; padding-left:10px;">PM:</b><asp:Label ID="labelPassMark" Text='<%# Eval("Sub_PassMarks ") %>' runat="server" CssClass="fmpmp"></asp:Label>
+                                <b style="color: brown; padding-left:10px;font-size: 10px;">Pass %:</b><asp:Label ID="labelParcentage" Text='<%# Eval("PassPercentage ") %>' runat="server" CssClass="fmpmp"></asp:Label>
+                            </td>
+                        </tr>
 
+                        <tr>
+                            <td>
+                                <asp:TextBox TextMode="Number" step="any" ID="MarksTextBox" runat="server" CssClass="InputVibl form-control" autocomplete="off" onDrop="blur();return false;" onpaste="return false" onkeypress="return isNumberKey(event)"></asp:TextBox></td>
+                            <td>
+                                <asp:CheckBox ID="AbsenceCheckBox" runat="server" Text="Abs" /></td>
+                        </tr>
 
-                                                <td>
+                    </table>
+                    <%--<asp:Label runat="server" ID="subexamID" Text='<%# Eval("SubExamID") %>'></asp:Label>--%>
 
-                                                    <table style="width:300px;">
-                                                        <tr style="background-color:#d6e1f4">
-                                                            <td colspan="2" style="border-bottom:solid 1px brown"><b style="font-size:16px; color:brown;"> <%# Eval("SubExamName") %></b>
+                    <asp:HiddenField ID="subexamID" runat="server" Value='<%# Eval("SubExamID") %>' />
 
-                                                                <br />
+                </td>
+                <td>
+     
+                </td>
 
-
-                                                               <b>FM:</b><asp:Label ID="lblFullMarks" Text='<%# Eval("FullMarks") %>' runat="server"></asp:Label>
-                                                               <b style="padding-left:20px;"> PM:</b><asp:Label ID="labelPassMark" Text='<%# Eval("Sub_PassMarks") %>' runat="server"></asp:Label>
-                                                                <b style="padding-left:20px;">Pass %:</b><asp:Label ID="labelParcentage" Text='<%# Eval("PassPercentage") %>' runat="server"></asp:Label>
-                                                            </td>
-                                                        </tr>
-                                                        
-                                                        <tr>
-                                                            <td><asp:TextBox ID="MarksTextBox" runat="server" CssClass="InputVibl form-control" autocomplete="off" onDrop="blur();return false;" onpaste="return false" onkeypress="return isNumberKey(event)"></asp:TextBox></td>
-                                                            <td><asp:CheckBox ID="AbsenceCheckBox" runat="server" Text="Absence" /></td>
-                                                        </tr>
-                                                        
-
-                                                    </table>
-                                                    <%--<asp:Label runat="server" ID="subexamID" Text='<%# Eval("SubExamID") %>'></asp:Label>--%>
-
-                                                    <asp:HiddenField ID="subexamID" runat="server" Value='<%# Eval("SubExamID") %>' />
-
-
-
-                                                    
-
-                                                </td>
-                                                <td>
-                                                    <div style="margin-top: 40px">
-                                                        
-                                                    </div>
-                                                </td>
-
-
-
-                                            </ItemTemplate>
-                                        </asp:DataList>
-                                    </tr>
-                                </table>
+            </ItemTemplate>
+        </asp:DataList>
+    </tr>
+</table>
                             </ItemTemplate>
                             <ItemStyle Width="100px" />
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Obtain Marks">
                             <ItemTemplate>
-                                <asp:TextBox ID="MarksTextBox" runat="server" CssClass="InputVibl form-control" autocomplete="off" onDrop="blur();return false;" onpaste="return false" onkeypress="return isNumberKey(event)"></asp:TextBox>
+                                <asp:TextBox Type="number" step="any" ID="MarksTextBox" runat="server" CssClass="InputVibl form-control" autocomplete="off" onDrop="blur();return false;" onpaste="return false" onkeypress="return isNumberKey(event) "></asp:TextBox>
                             </ItemTemplate>
                             <ItemStyle Width="100px" />
                         </asp:TemplateField>

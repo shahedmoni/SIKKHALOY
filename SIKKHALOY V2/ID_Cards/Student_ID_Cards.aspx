@@ -28,6 +28,9 @@
             border-bottom-left-radius: 50%;
             border-bottom-right-radius: 50%;
             padding-bottom: 19px;
+            padding-left: 5px;
+            padding-right: 5px;
+
         }
 
         /*#grid_Header img {
@@ -45,8 +48,8 @@
         }
 
         .Institution_Dialog {
-            font-size: 10px;
-            letter-spacing: 3.3px;
+            font-size: 8px;
+            letter-spacing: 2.3px;
             line-height: 14px;
             text-align: center;
         }
@@ -54,23 +57,23 @@
         .iCard-title {
             margin: auto;
             background-color: #0075d2;
-            border-radius: 3px;
             color: #fff;
-            font-size: 15px;
+            /*font-size: min(3vw, 1.em);*/
+             font-size: 45px;
             padding: 1px 10px;
             text-align: center;
-            width: 126px;
+            width: 100%;
         }
 
         .IDCard-title {
             margin: auto;
             background-color: #0075d2;
-            border-radius: 3px;
+           
             color: #fff;
-            font-size: 15px;
+            font-size: 14px;
             padding: 1px 10px;
             text-align: center;
-            width: 180px;
+            width: 100%;
         }
 
         #user-info {
@@ -110,7 +113,7 @@
             position: absolute;
             bottom: 0;
             background-color: #0075d2;
-            font-size: 12px;
+            font-size: 10px;
             text-align: center;
             color: #fff;
             width: 100%;
@@ -180,7 +183,6 @@
             width: 100%;
             text-align: right;
         }
-        /*.output span{    background: orange;    padding: 4px 17px;    display: inline-block;    color: #000;}*/
     </style>
 </asp:Content>
 

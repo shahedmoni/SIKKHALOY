@@ -624,6 +624,7 @@
     <Content Include="Student\OnlinePayment\Success.aspx" />
     <Content Include="Teacher\StudentAttendance.aspx" />
     <Content Include="Teacher\StudentNotice.aspx" />
+    <Content Include="Teacher\Input_Marks.aspx" />
     <Content Include="W_Test.aspx" />
     <None Include="API\Attendance_DataSet.xsd">
       <SubType>Designer</SubType>
@@ -717,7 +718,7 @@
     <Content Include="Teacher\Class_Routine.aspx" />
     <Content Include="Teacher\CV_Create.aspx" />
     <Content Include="Teacher\CV_Print.aspx" />
-    <Content Include="Teacher\Input_Marks.aspx" />
+    <Content Include="Teacher\Input_MarksOld.aspx" />
     <Content Include="Teacher\SMS_Inbox.aspx" />
     <Content Include="Teacher\Teacher_profile.aspx" />
     <Content Include="Teacher\Update_Info.aspx" />
@@ -1912,7 +1913,11 @@
     <Compile Include="Exam\CumulativeResult\Cu_Exam.cs">
       <DependentUpon>Cu_Exam.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Exam\CumulativeResult\Cu_Exam.Designer.cs" />
+    <Compile Include="Exam\CumulativeResult\Cu_Exam.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Cu_Exam.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Exam\Input_Exam_Marks_WithSubExam.aspx.cs">
       <DependentUpon>Input_Exam_Marks_WithSubExam.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2477,12 +2482,12 @@
     <Compile Include="Teacher\CV_Print.aspx.designer.cs">
       <DependentUpon>CV_Print.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Teacher\Input_Marks.aspx.cs">
-      <DependentUpon>Input_Marks.aspx</DependentUpon>
+    <Compile Include="Teacher\Input_MarksOld.aspx.cs">
+      <DependentUpon>Input_MarksOld.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Teacher\Input_Marks.aspx.designer.cs">
-      <DependentUpon>Input_Marks.aspx</DependentUpon>
+    <Compile Include="Teacher\Input_MarksOld.aspx.designer.cs">
+      <DependentUpon>Input_MarksOld.aspx</DependentUpon>
     </Compile>
     <Compile Include="Teacher\SMS_Inbox.aspx.cs">
       <DependentUpon>SMS_Inbox.aspx</DependentUpon>
@@ -2504,6 +2509,13 @@
     </Compile>
     <Compile Include="Teacher\StudentNotice.aspx.designer.cs">
       <DependentUpon>StudentNotice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Teacher\Input_Marks.aspx.cs">
+      <DependentUpon>Input_Marks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Teacher\Input_Marks.aspx.designer.cs">
+      <DependentUpon>Input_Marks.aspx</DependentUpon>
     </Compile>
     <Compile Include="Teacher\Teacher_profile.aspx.cs">
       <DependentUpon>Teacher_profile.aspx</DependentUpon>
@@ -2549,6 +2561,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AllNotice\" />
     <Folder Include="App\" />
   </ItemGroup>
   <ItemGroup>

@@ -54,7 +54,9 @@
             <Columns>
                 <asp:TemplateField HeaderText="Photo">
                     <ItemTemplate>
-                        <img src="data:image/jpg;base64, <%# Convert.ToBase64String(string.IsNullOrEmpty(Eval("Photo").ToString())? new byte[]{}: (byte[]) Eval("Photo"))  %>" onerror="this.src='/Handeler/Default/Male.png'" class="photo" alt="<%#Eval("MemberName") %>" />
+                        <Edititemtemplate>
+                            <img src="data:image/jpg;base64, <%# Convert.ToBase64String(string.IsNullOrEmpty(Eval("Photo").ToString())? new byte[]{}: (byte[]) Eval("Photo"))  %>" onerror="this.src='/Handeler/Default/Male.png'" class="photo" alt="<%#Eval("MemberName") %>" />
+                        </Edititemtemplate>
                     </ItemTemplate>                  
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Name" SortExpression="MemberName">
@@ -120,7 +122,7 @@
         <asp:SqlDataSource ID="MemberSQL" runat="server" ConnectionString="<%$ ConnectionStrings:EducationConnectionString %>" 
             InsertCommand="INSERT INTO CommitteeMember(CommitteeMemberTypeId, RegistrationID, SchoolID, MemberName, SmsNumber, Address, Photo) VALUES (@CommitteeMemberTypeId, @RegistrationID, @SchoolID, @MemberName, @SmsNumber, @Address, @Photo)"
             SelectCommand="SELECT CommitteeMember.CommitteeMemberId, CommitteeMemberType.CommitteeMemberType,CommitteeMemberType.CommitteeMemberTypeId, CommitteeMember.MemberName, CommitteeMember.SmsNumber, CommitteeMember.Address, CommitteeMember.Photo, CommitteeMember.TotalDonation, CommitteeMember.PaidDonation, CommitteeMember.DueDonation, CommitteeMember.InsertDate FROM CommitteeMember INNER JOIN CommitteeMemberType ON CommitteeMember.CommitteeMemberTypeId = CommitteeMemberType.CommitteeMemberTypeId WHERE (CommitteeMember.SchoolID = @SchoolID)"
-            UpdateCommand="UPDATE CommitteeMember SET CommitteeMemberTypeId = @CommitteeMemberTypeId, MemberName = @MemberName, SmsNumber = @SmsNumber, Address = @Address WHERE (CommitteeMemberId = @CommitteeMemberId)">
+            UpdateCommand="UPDATE CommitteeMember SET CommitteeMemberTypeId = @CommitteeMemberTypeId,Photo=@Photo, MemberName = @MemberName, SmsNumber = @SmsNumber, Address = @Address WHERE (CommitteeMemberId = @CommitteeMemberId)">
             <InsertParameters>
                 <asp:ControlParameter ControlID="TypeDropDownList" Name="CommitteeMemberTypeId" PropertyName="SelectedValue" />
                 <asp:SessionParameter Name="RegistrationID" SessionField="RegistrationID" Type="Int32" />

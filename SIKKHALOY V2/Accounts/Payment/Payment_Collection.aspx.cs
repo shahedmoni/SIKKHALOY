@@ -16,6 +16,8 @@ namespace EDUCATION.COM.ACCOUNTS.Payment
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["EducationConnectionString"].ToString());
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+
             if (!IsPostBack)
             {
                 SelectedAccount();
@@ -24,6 +26,7 @@ namespace EDUCATION.COM.ACCOUNTS.Payment
                     UpdateConcessionButton.Visible = false;
                 }
             }
+            
         }
         private bool GetLinkPageExist()  // Concession button show/hide
         {

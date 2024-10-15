@@ -63,34 +63,8 @@ namespace EDUCATION.COM.Exam
                 SectionDropDownList.Visible = false;
                 ShiftDropDownList.Visible = false;
 
-
-
-                //------
-
-                //BoundField bfield = new BoundField();
-                //bfield.HeaderText = "ObtainMarks";
-                //bfield.DataField = "ObtainMarks";
-                //StudentsGridView.Columns.Add(bfield);
-
-                
-
-                //CheckBoxField bfield1 = new CheckBoxField();
-                //bfield1.HeaderText = "Checkbox";
-                //bfield1.DataField = "Checkbox";
-                //StudentsGridView.Columns.Add(bfield1);
-
-                //TemplateField tfield = new TemplateField();
-                //tfield.HeaderText = "Country";
-                //StudentsGridView.Columns.Add(tfield);
-
-                //tfield = new TemplateField();
-                //tfield.HeaderText = "View";
-                //StudentsGridView.Columns.Add(tfield);
-
-
-
             }
-            //this.BindGrid();
+            
         }
         protected void StylDataList_ItemDataBound(object sender, DataListItemEventArgs e)
         {
@@ -100,37 +74,10 @@ namespace EDUCATION.COM.Exam
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                //SqlCommand cmd = new SqlCommand("Select MarksObtained,AbsenceStatus from Exam_Obtain_Marks Where StudentClassID = @StudentClassID and SubjectID = @SubjectID and ExamID = @ExamID and (SubExamID = @SubExamID or SubExamID is null)", con);
-                //cmd.Parameters.AddWithValue("@StudentClassID", StudentsGridView.DataKeys[e.Row.RowIndex]["StudentClassID"].ToString());
-                //cmd.Parameters.AddWithValue("@SubjectID", SubjectDropDownList.SelectedValue);
-                //cmd.Parameters.AddWithValue("@ExamID", ExamDropDownList.SelectedValue);
-                //cmd.Parameters.AddWithValue("@SubExamID", SubExamDownList.SelectedValue);
-
-                //con.Open();
-                //SqlDataAdapter da = new SqlDataAdapter(cmd);
-                //DataTable dt = new DataTable();
-                //da.Fill(dt);
-                //con.Close();
-
-                //if (dt.Rows.Count > 0)
-                //{
-                //    (e.Row.FindControl("MarksTextBox") as TextBox).Text = dt.Rows[0]["MarksObtained"].ToString();
-
-                //    if (dt.Rows[0]["AbsenceStatus"].ToString() == "Absent")
-                //    {
-                //        (e.Row.FindControl("AbsenceCheckBox") as CheckBox).Checked = true;
-                //        (e.Row.FindControl("MarksTextBox") as TextBox).Enabled = false;
-                //    }
-                //}
-                //----------------------------
-
-
-
-
+              
                 CheckBox StyleCheckBox = e.Row.FindControl("AbsenceCheckBox") as CheckBox;
                 TextBox ObtainedMarks = e.Row.FindControl("MarksTextBox") as TextBox;
-                //Panel AddClass = e.Item.FindControl("AddClass") as Panel;
-
+              
                 foreach (GridViewRow row in StudentsGridView.Rows)
                 {
                     DataList StylDataList = (DataList)row.FindControl("StylDataList");
@@ -140,13 +87,9 @@ namespace EDUCATION.COM.Exam
                     string schoolId = Session["SchoolID"].ToString();
 
                     SqlCommand cmd = new SqlCommand("Select MarksObtained,AbsenceStatus from Exam_Obtain_Marks Where SchoolID='"+ schoolId + "' and StudentID='" + studentId + "' and ExamID =@ExamID", con);
-                    //cmd.Parameters.AddWithValue("@StudentClassID", StudentsGridView.DataKeys[e.Item.ItemIndex]["StudentClassID"].ToString());
+                   
                     cmd.Parameters.AddWithValue("@SubjectID", SubjectDropDownList.SelectedValue);
                     cmd.Parameters.AddWithValue("@ExamID", ExamDropDownList.SelectedValue);
-                    //cmd.Parameters.AddWithValue("@SubExamID", SubExamDownList.SelectedValue);
-
-                    //string marks = ObtainedMarks.Text.Trim();
-
                     con.Open();
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
@@ -166,22 +109,10 @@ namespace EDUCATION.COM.Exam
                             }
 
 
-
-
-                            //SqlCommand cmd = new SqlCommand("Select MarksObtained,AbsenceStatus from Exam_Obtain_Marks Where StudentClassID = @StudentClassID and SubjectID = @SubjectID and ExamID = @ExamID and (SubExamID = @SubExamID or SubExamID is null)", con);
-                            //cmd.Parameters.AddWithValue("@StudentClassID", StudentsGridView.DataKeys[e.Item.ItemIndex]["StudentClassID"].ToString());
-                            //cmd.Parameters.AddWithValue("@SubjectID", SubjectDropDownList.SelectedValue);
-                            //cmd.Parameters.AddWithValue("@ExamID", ExamDropDownList.SelectedValue);
-                            //cmd.Parameters.AddWithValue("@SubExamID", SubExamDownList.SelectedValue);
-
-
-
                             if (dt.Rows.Count > 0)
                             {
 
                                 string marks = dt.Rows[0]["MarksObtained"].ToString();
-
-                                //(e.Ite.FindControl("MarksTextBox") as TextBox).Text = dt.Rows[0]["MarksObtained"].ToString();
 
                                 Session["obtainMarks"] = marks;
 
@@ -199,46 +130,10 @@ namespace EDUCATION.COM.Exam
                     }
                     
                 }
-
-                
-
-                //if (StyleCheckBox.Checked)
-                //{
-                //    StyleCheckBox.Checked = true;
-                //    ObtainedMarks.Enabled = false;
-                //}
-
-
-                //else
-                //    StyleCheckBox.Checked = false;
-                //ObtainedMarks.Enabled = true;
-
-
-
+           
             }
         }
-        private void BindGrid()
-        {
-
-            
-
-
-
-
-
-
-
-            //DataTable dt = new DataTable();
-            //dt.Columns.AddRange(new DataColumn[3] { new DataColumn("Id", typeof(int)),
-            //            new DataColumn("Name", typeof(string)),
-            //            new DataColumn("Country",typeof(string)) });
-            //dt.Rows.Add(1, "John Hammond", "United States");
-            //dt.Rows.Add(2, "Mudassar Khan", "India");
-            //dt.Rows.Add(3, "Suzanne Mathews", "France");
-            //dt.Rows.Add(4, "Robert Schidner", "Russia");
-            //StudentsGridView.DataSource = dt;     //DataSourceID="ShowStudentClassSQL"
-            //StudentsGridView.DataBind();
-        }
+    
         protected void ExamDropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["Group"] = "%";
@@ -314,13 +209,7 @@ namespace EDUCATION.COM.Exam
         protected void SubExamDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
             PassMarkFullMarkSQL.SelectParameters["SubExamID"].DefaultValue = SubExamDownList.SelectedValue;
-            //SubExamDownList.Cou
-
-
-
-
-
-
+       
             StudentsGridView.DataBind();
         }
 
@@ -377,7 +266,6 @@ namespace EDUCATION.COM.Exam
             StudentsGridView.Visible = true;
             SubmitButton.Visible = true;
             FmPmFormView.Visible = true;
-            this.BindGrid();
             int totalrecord = Convert.ToInt32(SubExamDownList.Items.Count.ToString());
 
             string eduyear = Session["Edu_Year"].ToString();
@@ -392,136 +280,23 @@ namespace EDUCATION.COM.Exam
             cmd.Parameters.AddWithValue("@ShiftID", ShiftDropDownList.SelectedValue);
             cmd.Parameters.AddWithValue("@SchoolID", Session["SchoolID"].ToString());
 
-
-            
-
             con.Open();
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
-
-            //dt.Columns.AddRange(new DataColumn[5] { new DataColumn("StudentName", typeof(string)),
-            //           new DataColumn("FathersName", typeof(string)),
-            //           new DataColumn("Name", typeof(string)),
-            //           new DataColumn("ObtainMarks", typeof(string)),
-            //          new DataColumn("StudentID",typeof(int)) });
-
-            //dt.Columns.Add(new DataColumn("ObtainMarks", typeof(double)));
-            //dt.Columns.Add(new DataColumn("Checkbox", typeof(bool)));
-
-
-            //dt.Columns.Add(new DataColumn("Selected", typeof(bool))); //this will show checkboxes
-            //dt.Columns.Add(new DataColumn("Text", typeof(string)));
-
             da.Fill(dt);
             StudentsGridView.DataSource = dt;
             con.Close();
-
-            //SqlCommand cmd = new SqlCommand("Select MarksObtained,AbsenceStatus from Exam_Obtain_Marks Where StudentClassID = @StudentClassID and SubjectID = @SubjectID and ExamID = @ExamID and (SubExamID = @SubExamID or SubExamID is null)", con);
-            //cmd.Parameters.AddWithValue("@StudentClassID", StudentsGridView.DataKeys[e.Row.RowIndex]["StudentClassID"].ToString());
-            //cmd.Parameters.AddWithValue("@SubjectID", SubjectDropDownList.SelectedValue);
-            //cmd.Parameters.AddWithValue("@ExamID", ExamDropDownList.SelectedValue);
-            //cmd.Parameters.AddWithValue("@SubExamID", SubExamDownList.SelectedValue);
-
-            //con.Open();
-            //SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //DataTable dt = new DataTable();
-            //da.Fill(dt);
-            //con.Close();
-
-
-            //DataTable dt = new DataTable();
-            //dt.Columns.AddRange(new DataColumn[3] { new DataColumn("Id", typeof(int)),
-            //            new DataColumn("Name", typeof(string)),
-            //            new DataColumn("Country",typeof(string)) });
-            //dt.Rows.Add(1, "John Hammond", "United States");
-            //dt.Rows.Add(2, "Mudassar Khan", "India");
-            //dt.Rows.Add(3, "Suzanne Mathews", "France");
-            //dt.Rows.Add(4, "Robert Schidner", "Russia");
-            //StudentsGridView.DataSource = dt;     //DataSourceID="ShowStudentClassSQL"
-            //StudentsGridView.DataBind();
-
-
-
-
-
-
-            //for (int i = 0; i < totalrecord - 1; i++)
-            //{
-            //    AddGridviewColumn();
-            //}
-
-            //DataTable dt = new DataTable();
-            //DataRow dr = dt.NewRow();
-            //dt.Columns.Add(new DataColumn("Obtain Marks", typeof(double)));
-            //dt.Columns.Add(new DataColumn("Absanse", typeof(string)));
-            //dr["Obtain Marks"] = 20;
-            //dr["Absanse"] ="Present";
-            //dt.Rows.Add(dr);
-            //StudentsGridView.DataSource = dt;
-            //StudentsGridView.DataBind();
-
-
-            //TemplateField col = new TemplateField();
-
-
-
-            //StudentsGridView.Columns.Add(col);
-
-
-           
-
-
+        
             StudentsGridView.DataBind();
         }
 
         
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            // RepeaterItem item = (sender as Button).NamingContainer as RepeaterItem;
-
-            //TextBox ObtainedMarks = (TextBox)row.FindControl("MarksTextBox");
-
-            //string message = "Customer Id: " + (item.FindControl("MarksTextBox") as TextBox).Text;
-
-
-            // ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('" + message + "');", true);
-
-            //for (int i = 0; i < myTable1.Rows.Count; i++)
-            //{
-            //    for (int j = 0; j < myTable.Rows[i].Cells.Count; j++)
-            //    {
-            //        Response.Write(myTable.Rows[i].Cells[j].Text + "|");
-            //    }
-            //}
-
-
-
-            //foreach (RepeaterItem item in Repeater1.Items)
-            //{
-            //    if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
-            //    {
-
-            //        TextBox ObtainedMarks = (TextBox)item.FindControl("MarksTextBox");
-
-
-            //        string marks = ObtainedMarks.Text;
-            //        var checkBox = (CheckBox)item.FindControl("ckbActive");
-
-            //        //Do something with your checkbox...
-            //        checkBox.Checked = true;
-            //    }
-            //}
-
-
-
             bool IS_FullMark = true;
             double FullMark = Convert.ToDouble(FmPmFormView.DataKey["FullMark"].ToString());
             double PassMark = Convert.ToDouble(FmPmFormView.DataKey["PassMark"].ToString());
             double PassPercentage = Convert.ToDouble(FmPmFormView.DataKey["PassPercentage"].ToString());
-
-            
-
-
 
             foreach (GridViewRow row in StudentsGridView.Rows)
             {
@@ -532,11 +307,7 @@ namespace EDUCATION.COM.Exam
                     string value = itm.FindControl("MarksTextBox").ToString();
                 
                 }
-
-
-
-
-                    TextBox ObtainedMarks = (TextBox)row.FindControl("MarksTextBox");
+                 TextBox ObtainedMarks = (TextBox)row.FindControl("MarksTextBox");
 
                 if (ObtainedMarks.Text.Trim() != "")
                 {
@@ -573,11 +344,6 @@ namespace EDUCATION.COM.Exam
                     {
                         TextBox ObtainedMarks = (TextBox)row.FindControl("MarksTextBox");
                         CheckBox AbsenceCheckBox = (CheckBox)row.FindControl("AbsenceCheckBox");
-
-                        
-                        
-
-
 
                         if (ObtainedMarks.Text.Trim() != "" || AbsenceCheckBox.Checked)
                         {
